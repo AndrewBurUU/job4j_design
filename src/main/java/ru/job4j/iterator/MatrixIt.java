@@ -22,9 +22,7 @@ public class MatrixIt implements Iterator<Integer> {
     public boolean hasNext() {
         boolean res = true;
         getFullRow();
-        if (row == data.length ||
-                (row == data.length - 1 && column == data[row].length)
-        ) {
+        if (row == data.length || (row == data.length - 1 && column == data[row].length)) {
             res = false;
         } else {
             if (column == data[row].length || data[row].length == 0) {
