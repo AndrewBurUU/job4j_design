@@ -41,4 +41,8 @@ public class MatrixIt implements Iterator<Integer> {
         }
         return data[row][column++];
     }
+
+    public static void main(String[] args) {
+
+    }
 }
