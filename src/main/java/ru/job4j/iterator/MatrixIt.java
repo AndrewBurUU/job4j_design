@@ -12,16 +12,26 @@ public class MatrixIt implements Iterator<Integer> {
         this.data = data;
     }
 
-    @Override
-    public boolean hasNext() {
-        boolean res = true;
+    private void getFullRow() {
         while (row < data.length && data[row].length == 0) {
             row++;
         }
+    }
+
+    @Override
+    public boolean hasNext() {
+        boolean res = true;
+        getFullRow();
         if (row == data.length ||
                 (row == data.length - 1 && column == data[row].length)
         ) {
             res = false;
+        } else {
+            if (column == data[row].length || data[row].length == 0) {
+                column = 0;
+                row++;
+                getFullRow();
+            }
         }
         return res;
     }
@@ -31,17 +41,6 @@ public class MatrixIt implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        Integer res = 0;
-        if (column < data[row].length) {
-            res = data[row][column++];
-        } else {
-            row++;
-            column = 0;
-            while (data[row].length == 0) {
-                row++;
-            }
-            res = data[row][column++];
-        }
-        return res;
+        return data[row][column++];
     }
 }
