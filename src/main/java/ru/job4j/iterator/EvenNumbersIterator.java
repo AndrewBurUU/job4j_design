@@ -17,10 +17,11 @@ public class EvenNumbersIterator implements Iterator<Integer> {
             index++;
         }
     }
+
     @Override
     public boolean hasNext() {
         findEvenNumber();
-        return index < data.length ? true : false;
+        return index < data.length;
     }
 
     @Override

@@ -70,7 +70,7 @@ class EvenNumbersIteratorTest {
     }
 
     @Test
-    void whenGetNext(){
+    void whenGetNext() {
         it = new EvenNumbersIterator(new int[] {1, 1, 2, 7});
         assertThat(it.next()).isEqualTo(2);
     }
