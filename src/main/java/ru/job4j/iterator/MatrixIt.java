@@ -12,27 +12,14 @@ public class MatrixIt implements Iterator<Integer> {
         this.data = data;
     }
 
-    private void getFullRow() {
-        while (row < data.length && data[row].length == 0) {
-            row++;
-        }
-    }
-
     @Override
     public boolean hasNext() {
-        boolean res = true;
-        getFullRow();
-        if (row == data.length
-                || (row == data.length - 1 && column == data[row].length)) {
-            res = false;
-        } else {
-            if (column == data[row].length || data[row].length == 0) {
-                column = 0;
-                row++;
-                getFullRow();
-            }
+        while (row < data.length && (data[row].length == 0
+                || column == data[row].length)) {
+            row++;
+            column = 0;
         }
-        return res;
+        return row < data.length;
     }
 
     @Override
