@@ -75,7 +75,9 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public Iterator<T> iterator() {
-        expectedModCount = modCount;
+        if (expectedModCount != modCount) {
+            throw new ConcurrentModificationException();
+        }
         return new Iterator<T>() {
             @Override
             public boolean hasNext() {
@@ -90,8 +92,5 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 return container[size];
             }
         };
-        if (expectedModCount != modCount) {
-            throw new ConcurrentModificationException();
-        }
     }
 }
