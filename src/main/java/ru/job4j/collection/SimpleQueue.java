@@ -31,15 +31,4 @@ public class SimpleQueue<T> {
         in.push(value);
         size++;
     }
-
-    public static void main(String[] args) {
-        SimpleQueue<Integer> queue = new SimpleQueue<>();
-        queue.push(1);
-        queue.push(2);
-        queue.push(3);
-//        System.out.println(queue.in.pop());
-        System.out.println(queue.poll());
-        System.out.println(queue.poll());
-        System.out.println(queue.poll());
-    }
 }
