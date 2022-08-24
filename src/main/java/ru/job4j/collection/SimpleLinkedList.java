@@ -36,13 +36,13 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        int point = 0;
-        E res = first.item;
-        while (point <= index) {
-            res = iterator().next();
-            point++;
+        int indexPoint = 0;
+        Node<E> point = first;
+        while (indexPoint != index) {
+            point = point.next;
+            indexPoint++;
         }
-        return res;
+        return point.item;
     }
 
     @Override
@@ -71,13 +71,5 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
                 return e;
             }
         };
-    }
-
-    public static void main(String[] args) {
-        LinkedList<Integer> list;
-        list = new SimpleLinkedList<>();
-        list.add(1);
-        list.add(2);
-        System.out.println(list.get(1));
     }
 }
