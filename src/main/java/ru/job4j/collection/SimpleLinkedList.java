@@ -50,7 +50,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         return new Iterator<E>() {
             int expectedModCount = modCount;
             Node<E> eNode = first;
-            int point = 0;
 
             @Override
             public boolean hasNext() {
