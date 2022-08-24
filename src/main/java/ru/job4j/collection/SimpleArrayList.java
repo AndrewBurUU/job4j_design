@@ -10,13 +10,17 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     private int modCount = 0;
 
-    private T[] growUp() {
-        container = Arrays.copyOf(container, container.length * 2);
-        return container;
-    }
-
     public SimpleArrayList(int capacity) {
         this.container = (T[]) new Object[capacity];
+    }
+
+    private T[] growUp() {
+        if (container.length == 0) {
+            container = Arrays.copyOf(container, 10);
+        } else {
+            container = Arrays.copyOf(container, container.length * 2);
+        }
+        return container;
     }
 
     @Override
@@ -33,12 +37,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     public T set(int index, T newValue) {
         Objects.checkIndex(index, size);
         T res = get(index);
-        for (int i = 0; i < size; i++) {
-            if (i == index) {
-                container[i] = newValue;
-                break;
-            }
-        }
+        container[index] = newValue;
         return res;
     }
 
@@ -56,14 +55,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public T get(int index) {
         Objects.checkIndex(index, size);
-        T res = null;
-        for (int i = 0; i < size; i++) {
-            if (i == index) {
-                res = container[i];
-                break;
-            }
-        }
-        return res;
+        return container[index];
     }
 
     @Override

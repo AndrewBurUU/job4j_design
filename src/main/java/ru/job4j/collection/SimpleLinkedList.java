@@ -12,19 +12,17 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     private static class Node<E> {
         E item;
         Node<E> next;
-        Node<E> prev;
 
-        Node(Node<E> prev, E element, Node<E> next) {
+        Node(E element, Node<E> next) {
             this.item = element;
             this.next = next;
-            this.prev = prev;
         }
     }
 
     @Override
     public void add(E value) {
         final Node<E> l = last;
-        final Node<E> newNode = new Node<>(l, value, null);
+        final Node<E> newNode = new Node<>(value, null);
         last = newNode;
         if (l == null) {
             first = newNode;
@@ -40,7 +38,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         Objects.checkIndex(index, size);
         int point = 0;
         E res = first.item;
-        while (point < index) {
+        while (point <= index) {
             res = iterator().next();
             point++;
         }
@@ -51,14 +49,15 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
             int expectedModCount = modCount;
-            Node<E> element = first;
+            Node<E> eNode = first;
+            int point = 0;
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return element != last;
+                return point < size;
             }
 
             @Override
@@ -66,9 +65,19 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                element = element.next;
-                return element.item;
+                E e = eNode.item;
+                eNode = eNode.next;
+                point++;
+                return e;
             }
         };
+    }
+
+    public static void main(String[] args) {
+        LinkedList<Integer> list;
+        list = new SimpleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        System.out.println(list.get(1));
     }
 }
