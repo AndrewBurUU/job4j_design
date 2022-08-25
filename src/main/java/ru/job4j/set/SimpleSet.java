@@ -10,9 +10,10 @@ public class SimpleSet<T> implements Set<T> {
 
     @Override
     public boolean add(T value) {
-        boolean res = contains(value);
-        if (!res) {
+        boolean res = false;
+        if (!contains(value)) {
             set.add(value);
+            res = true;
         }
         return res;
     }
@@ -21,7 +22,7 @@ public class SimpleSet<T> implements Set<T> {
     public boolean contains(T value) {
         boolean res = false;
         for (int i = 0; i < set.size(); i++) {
-            if (set.get(i).equals(value)) {
+            if (set.get(i) == null || set.get(i).equals(value)) {
                 res = true;
                 break;
             }
