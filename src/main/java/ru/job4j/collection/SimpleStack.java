@@ -1,7 +1,5 @@
 package ru.job4j.collection;
 
-import org.w3c.dom.*;
-
 public class SimpleStack<T> {
     private ForwardLinked<T> linked = new ForwardLinked<T>();
 
