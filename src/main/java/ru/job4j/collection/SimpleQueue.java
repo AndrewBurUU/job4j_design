@@ -5,30 +5,17 @@ import java.util.*;
 public class SimpleQueue<T> {
     private final SimpleStack<T> in = new SimpleStack<>();
     private final SimpleStack<T> out = new SimpleStack<>();
-    private int size;
 
     public T poll() {
-        if (in == null) {
-            throw new NoSuchElementException();
+        if (out.isEmpty()) {
+            while (!in.isEmpty()) {
+                out.push(in.pop());
+            }
         }
-        int count = 0;
-        while (count < size) {
-            out.push(in.pop());
-            count++;
-        }
-
-        T res = out.pop();
-        size--;
-        count = 0;
-        while (count < size) {
-            in.push(out.pop());
-            count++;
-        }
-        return res;
+        return out.pop();
     }
 
     public void push(T value) {
         in.push(value);
-        size++;
     }
 }
