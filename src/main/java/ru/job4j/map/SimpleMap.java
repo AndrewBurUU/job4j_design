@@ -16,14 +16,16 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        boolean res = true;
+        boolean res = false;
         modCount++;
         if (count / capacity >= LOAD_FACTOR) {
             expand();
-            res = false;
-        } else {
-            table[getIndex(key)] = new MapEntry<>(key, value);
+        }
+        int bucket = getIndex(key);
+        if (table[bucket] == null) {
+            table[bucket] = new MapEntry<>(key, value);
             count++;
+            res = true;
         }
         return res;
     }
@@ -65,14 +67,16 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V v = null;
-        MapEntry<K, V> mapEntry = table[getIndex(key)];
-        if (mapEntry.key == null && key == null) {
-            v = mapEntry.value;
-        } else {
-            int elementHashCode = mapEntry.key.hashCode();
-            if (elementHashCode == getHashCode(key)) {
-                if (mapEntry.key.equals(key)) {
-                    v = mapEntry.value;
+        if (table[getIndex(key)] != null) {
+            MapEntry<K, V> mapEntry = table[getIndex(key)];
+            if (mapEntry.key == null && key == null) {
+                v = mapEntry.value;
+            } else {
+                int elementHashCode = mapEntry.key.hashCode();
+                if (elementHashCode == getHashCode(key)) {
+                    if (mapEntry.key.equals(key)) {
+                        v = mapEntry.value;
+                    }
                 }
             }
         }
@@ -115,7 +119,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return point < count;
+                while (table[point] == null && point < table.length - 1) {
+                    point++;
+                }
+                return point < table.length - 1;
             }
 
             @Override
