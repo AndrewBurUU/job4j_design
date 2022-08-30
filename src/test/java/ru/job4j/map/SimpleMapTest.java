@@ -26,8 +26,8 @@ class SimpleMapTest {
     @Test
     void whenCheckGet() {
         assertThat(map.get(1)).isEqualTo("1");
-        assertThat(map).hasSize(4);
-        assertThat(map.get(5)).isNull();
+       assertThat(map).hasSize(4);
+       assertThat(map.get(5)).isNull();
         assertThat(map).hasSize(4);
     }
 
