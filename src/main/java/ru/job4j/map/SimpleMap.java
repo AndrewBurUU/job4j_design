@@ -44,8 +44,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         MapEntry<K, V>[] newTable = new MapEntry[capacity];
         for (int i = 0; i < table.length; i++) {
             if (table[i] != null) {
-                MapEntry<K, V> mapEntry = table[i];
-                newTable[getIndex(mapEntry.key)] = new MapEntry<>(mapEntry.key, mapEntry.value);
+                newTable[getIndex(table[i].key)] = table[i];
             }
         }
         table = newTable;
