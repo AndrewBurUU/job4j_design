@@ -7,7 +7,7 @@ import java.util.Set;
 public class Analize {
 
     public static Info diff(Set<User> previous, Set<User> current) {
-        Info info = new Info(0,0,0);
+        Info info = new Info(0, 0, 0);
         int countDel = 0;
         int countCh = 0;
         int countAdd = 0;
