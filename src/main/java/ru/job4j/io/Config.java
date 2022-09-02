@@ -16,9 +16,14 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             String str;
             while ((str = read.readLine()) != null) {
-                if (!str.isEmpty() && !str.startsWith("#") && str.contains("=")) {
-                    String[] pair = str.split("[@+=*%]");
-                    values.put(pair[0], pair[1]);
+                if (!str.isEmpty() && !str.startsWith("#")) {
+                    int posDelim = str.indexOf("=");
+                    if (posDelim <= 0 || posDelim == str.length() - 1) {
+                        throw new IllegalArgumentException();
+                    }
+                    String key = str.substring(0, posDelim);
+                    String value = str.substring(posDelim + 1, str.length());
+                    values.put(key, value);
                 }
             }
 
@@ -29,30 +34,22 @@ public class Config {
     }
 
     public String value(String key) {
-        throw new UnsupportedOperationException("Don't impl this method yet!");
+        return values.get(key);
+    }
+
+    public Map<String, String> getValues() {
+        return values;
     }
 
     @Override
     public String toString() {
         StringJoiner out = new StringJoiner(System.lineSeparator());
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            read.lines().forEach(newElement -> out.add(newElement));
+            read.lines().forEach(out::add);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return out.toString();
     }
 
-    public static void main(String[] args) {
-
-        //System.out.println(new Config("app.properties"));
-        String str = "111123=abcddddd";
-        String[] pair = str.split("[@+=*%]");
-        if (pair.length == 1)
-            return;
-        String delim = str.substring(pair[0].length(), str.length() - pair[1].length());
-        System.out.println(pair[0]); // 123
-        System.out.println(delim);   // &
-        System.out.println(pair[1]); // abcd
-    }
 }
