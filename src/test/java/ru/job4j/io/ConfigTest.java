@@ -25,22 +25,37 @@ class ConfigTest {
     void whenIncorrectPairNoKey() {
         String path = "./data/IncorrectPairNoKey.properties";
         Config config = new Config(path);
-        assertThatThrownBy(() -> config.load()).isInstanceOf(IllegalArgumentException.class);
+        String errLine = "=Petr Arsentev";
+        assertThatThrownBy(() -> config.load())
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageMatching("^.+")
+                .hasMessageContaining(errLine)
+                .hasMessageContaining("Incorrect pair line");
     }
 
     @Test
     void whenIncorrectPairNoValue() {
         String path = "./data/IncorrectPairNoValue.properties";
         Config config = new Config(path);
-        assertThatThrownBy(() -> config.load()).isInstanceOf(IllegalArgumentException.class);
+        String errLine = "name=";
+        assertThatThrownBy(() -> config.load())
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageMatching("^.+")
+                .hasMessageContaining(errLine)
+                .hasMessageContaining("Incorrect pair line");
     }
 
     @Test
     void whenIncorrectPairNoDelim() {
         String path = "./data/IncorrectPairNoDelim.properties";
         Config config = new Config(path);
-        assertThatThrownBy(() -> config.load()).isInstanceOf(IllegalArgumentException.class);
-    }
+        String errLine = "namePetr Arsentev";
+        assertThatThrownBy(() -> config.load())
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageMatching("^.+")
+                .hasMessageContaining(errLine)
+                .hasMessageContaining("Incorrect pair line");
+   }
 
     @Test
     void whenIncorrectPairManyDelims() {

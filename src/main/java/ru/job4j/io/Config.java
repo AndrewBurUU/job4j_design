@@ -10,22 +10,22 @@ public class Config {
 
     public Config(final String path) {
         this.path = path;
-
     }
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             String str;
             while ((str = read.readLine()) != null) {
-                if (!str.isEmpty() && !str.startsWith("#")) {
-                    int posDelim = str.indexOf("=");
-                    if (posDelim <= 0 || posDelim == str.length() - 1) {
-                        throw new IllegalArgumentException();
-                    }
-                    String key = str.substring(0, posDelim);
-                    String value = str.substring(posDelim + 1, str.length());
-                    values.put(key, value);
+                if (str.isEmpty() || str.startsWith("#")) {
+                    continue;
                 }
+                int posDelim = str.indexOf("=");
+                if (posDelim <= 0 || posDelim == str.length() - 1) {
+                    throw new IllegalArgumentException("Incorrect pair line: " + str);
+                }
+                String key = str.substring(0, posDelim);
+                String value = str.substring(posDelim + 1, str.length());
+                values.put(key, value);
             }
 
         } catch (IOException e) {
