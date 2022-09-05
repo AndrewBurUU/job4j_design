@@ -21,7 +21,7 @@ public class Config {
                 }
                 int posDelim = str.indexOf("=");
                 if (posDelim <= 0 || posDelim == str.length() - 1) {
-                    throw new IllegalArgumentException("Incorrect pair line: " + str);
+                    throw new IllegalArgumentException(String.format("Incorrect pair line: %s", str));
                 }
                 String key = str.substring(0, posDelim);
                 String value = str.substring(posDelim + 1, str.length());
