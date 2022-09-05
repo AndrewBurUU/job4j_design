@@ -9,11 +9,18 @@ public class EvenNumberFile {
             StringBuilder text = new StringBuilder();
             int read;
             while ((read = in.read()) != -1) {
-                int num = (int) read;
-                text.append(num % 2 == 0 ? num + ": even" : num + ": odd");
-                text.append(System.lineSeparator());
+                if (read == 13) {
+                    int num = Integer.parseInt(text.toString());
+                    text.delete(0, text.length());
+                    if (num % 2 == 0) {
+                        System.out.println(num + " is even");
+                    } else {
+                        System.out.println(num + " is odd");
+                    }
+                } else if (Character.isDigit((char) read)) {
+                    text.append((char) read);
+                }
             }
-            System.out.println(text);
         } catch (Exception e) {
             e.printStackTrace();
         }
