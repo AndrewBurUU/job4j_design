@@ -1,13 +1,12 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.*;
 
 public class Analizy {
 
     public void unavailable(String source, String target) {
-        List<String> res = new ArrayList<>();
-        try (BufferedReader in = new BufferedReader(new FileReader(source))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(source));
+             PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
             String unavailLine = "";
             for (String str : in.lines().toList()) {
                 String[] arLine = str.split(" ");
@@ -19,8 +18,7 @@ public class Analizy {
                     }
                 } else if (("200").equals(codeLine) || ("300").equals(codeLine)) {
                     if (unavailLine.length() > 0) {
-                        unavailLine += ";" + timeLine;
-                        res.add(unavailLine);
+                        out.println(unavailLine + ";" + timeLine);
                         unavailLine = "";
                     }
                 }
@@ -28,13 +26,6 @@ public class Analizy {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
-            res.stream().forEach(s -> out.println(s));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     public static void main(String[] args) {
