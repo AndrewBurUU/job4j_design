@@ -11,7 +11,7 @@ public class LogFilter {
             String str;
             while ((str = in.readLine()) != null) {
                 String[] tmpStr = str.split(" ");
-                if (tmpStr[tmpStr.length - 2].equals("404")) {
+                if (("404").equals(tmpStr[tmpStr.length - 2])) {
                     res.add(str + System.lineSeparator());
                 }
             }
@@ -36,6 +36,6 @@ public class LogFilter {
     public static void main(String[] args) {
         LogFilter logFilter = new LogFilter();
         List<String> log = logFilter.filter("log.txt");
-        save(log, "404.txt");
+        log.stream().forEach(System.out::print);
     }
 }
