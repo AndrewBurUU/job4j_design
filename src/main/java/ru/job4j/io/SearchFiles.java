@@ -22,7 +22,7 @@ public class SearchFiles implements FileVisitor<Path> {
     }
 
     public List<Path> getPaths() {
-        return paths.stream().collect(Collectors.toList());
+        return paths;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SearchFiles implements FileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         if (condition.test(file)) {
-            paths.add(file.getFileName());
+            paths.add(file);
         }
         return CONTINUE;
     }
