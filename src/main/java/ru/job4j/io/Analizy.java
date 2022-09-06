@@ -12,15 +12,15 @@ public class Analizy {
                 String[] arLine = str.split(" ");
                 String codeLine = arLine[0];
                 String timeLine = arLine[1];
-                if (("400").equals(codeLine) || ("500").equals(codeLine)) {
-                    if (unavailLine.isEmpty()) {
-                        unavailLine = timeLine;
-                    }
-                } else if (("200").equals(codeLine) || ("300").equals(codeLine)) {
-                    if (unavailLine.length() > 0) {
+                if ((("400").equals(codeLine) || ("500").equals(codeLine))
+                && unavailLine.isEmpty()
+                ) {
+                    unavailLine = timeLine;
+                } else if ((("200").equals(codeLine) || ("300").equals(codeLine))
+                && unavailLine.length() > 0
+                ) {
                         out.println(unavailLine + ";" + timeLine);
                         unavailLine = "";
-                    }
                 }
             }
         } catch (Exception e) {
