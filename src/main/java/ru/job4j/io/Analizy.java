@@ -4,7 +4,7 @@ import java.io.*;
 
 public class Analizy {
 
-    public void unavailable(String source, String target) {
+    public static void unavailable(String source, String target) {
         try (BufferedReader in = new BufferedReader(new FileReader(source));
              PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
             String unavailLine = "";
@@ -19,7 +19,7 @@ public class Analizy {
                 } else if ((("200").equals(codeLine) || ("300").equals(codeLine))
                 && unavailLine.length() > 0
                 ) {
-                        out.println(unavailLine + ";" + timeLine);
+                        out.println(unavailLine + ";" + timeLine + ";");
                         unavailLine = "";
                 }
             }
