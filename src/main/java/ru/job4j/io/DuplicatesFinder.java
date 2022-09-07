@@ -16,6 +16,7 @@ public class DuplicatesFinder {
             for (Path curPath : resMap.get(curFile)) {
                 System.out.println(curPath);
             }
+            System.out.println();
         }
     }
 }
