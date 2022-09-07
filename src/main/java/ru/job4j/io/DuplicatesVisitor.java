@@ -9,11 +9,9 @@ import java.util.*;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
 
-    private Map<FileProperty, Path> filesMap;
     private Map<FileProperty, ArrayList<Path>> fileDuplicatesMap;
 
     public DuplicatesVisitor() {
-        this.filesMap = new LinkedHashMap<>();
         this.fileDuplicatesMap = new LinkedHashMap<>();
     }
 
@@ -24,19 +22,12 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         FileProperty newFile = new FileProperty(file.getFileName().toString(), attrs.size());
-        if (filesMap.containsKey(newFile)) {
-            Path mapPath = filesMap.get(newFile);
-            ArrayList<Path> tmpArray = new ArrayList<>();
-            if (fileDuplicatesMap.containsKey(newFile)) {
-                tmpArray = fileDuplicatesMap.get(newFile);
-            } else {
-                tmpArray.add(mapPath);
-            }
-            tmpArray.add(file);
-            fileDuplicatesMap.put(newFile, tmpArray);
-        } else {
-            filesMap.put(newFile, file);
+        ArrayList<Path> res = fileDuplicatesMap.putIfAbsent(newFile, new ArrayList<>());
+        if (res == null) {
+            res = new ArrayList<>();
         }
+        res.add(file);
+        fileDuplicatesMap.put(newFile, res);
         return super.visitFile(file, attrs);
     }
 }

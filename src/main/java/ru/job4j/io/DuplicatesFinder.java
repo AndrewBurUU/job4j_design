@@ -11,12 +11,14 @@ public class DuplicatesFinder {
         Files.walkFileTree(Path.of("./data/tmp"), res);
         Map<FileProperty, ArrayList<Path>> resMap = res.getFileDuplicatesMap();
         for (FileProperty curFile : resMap.keySet()) {
-            System.out.println(String.format("FileName: %s, FileSize: %s.", curFile.getName(), curFile.getSize()));
-            System.out.println("There are some file duplicates:");
-            for (Path curPath : resMap.get(curFile)) {
-                System.out.println(curPath);
+            if (resMap.get(curFile).size() > 1) {
+                System.out.println(String.format("FileName: %s, FileSize: %s.", curFile.getName(), curFile.getSize()));
+                System.out.println("There are some file duplicates:");
+                for (Path curPath : resMap.get(curFile)) {
+                    System.out.println(curPath);
+                }
+                System.out.println();
             }
-            System.out.println();
         }
     }
 }
