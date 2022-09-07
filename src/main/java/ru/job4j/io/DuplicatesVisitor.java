@@ -22,12 +22,8 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         FileProperty newFile = new FileProperty(file.getFileName().toString(), attrs.size());
-        ArrayList<Path> res = fileDuplicatesMap.putIfAbsent(newFile, new ArrayList<>());
-        if (res == null) {
-            res = new ArrayList<>();
-        }
-        res.add(file);
-        fileDuplicatesMap.put(newFile, res);
+        fileDuplicatesMap.putIfAbsent(newFile, new ArrayList<>());
+        fileDuplicatesMap.get(newFile).add(file);
         return super.visitFile(file, attrs);
     }
 }
