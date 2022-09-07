@@ -24,7 +24,6 @@ public class Search {
     }
 
     public static void argumentsValidate(String[] arguments) {
-        boolean res = false;
         if (arguments.length == 0) {
             throw new IllegalArgumentException("Root folder is null. Usage ROOT_FOLDER.");
         }

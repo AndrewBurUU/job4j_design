@@ -8,11 +8,36 @@ public class ArgsName {
     private final Map<String, String> values = new HashMap<>();
 
     public String get(String key) {
-        return values.get(key);
+        String res = values.get(key);
+        if (res == null) {
+            throw new IllegalArgumentException("Value not found.");
+        }
+        return res;
     }
 
     private void parse(String[] args) {
         /* TODO parse args to values. */
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Args not found");
+        }
+        int delim = -1;
+        int keySymbolPos = -1;
+        String key = "";
+        String value = "";
+        for (int i = 0; i < args.length; i++) {
+            String pair = args[i];
+            delim = pair.indexOf('=');
+            keySymbolPos = pair.indexOf('-');
+            if (delim > 1 && keySymbolPos == 0) {
+                key = pair.substring(keySymbolPos + 1, delim);
+                value = pair.substring(delim + 1, pair.length());
+            }
+            if (key.isEmpty() || value.isEmpty()) {
+                throw new IllegalArgumentException(String.format("Incorrect pair: %s", pair));
+            }
+            values.put(key, value);
+        }
+
     }
 
     public static ArgsName of(String[] args) {
