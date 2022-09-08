@@ -34,7 +34,7 @@ public class ArgsName {
         }
     }
 
-    private void parse(String[] args) {
+    public void parse(String[] args) {
         /* TODO parse args to values. */
         for (int i = 0; i < args.length; i++) {
             checkPair(args[i]);
