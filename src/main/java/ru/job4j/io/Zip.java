@@ -32,7 +32,6 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
-        /*
         Zip zip = new Zip();
         ArgsName jvm = ArgsName.of(args);
         Path sourcePath = Paths.get(jvm.get("d"));
@@ -40,7 +39,5 @@ public class Zip {
         String targetFile = jvm.get("o");
         Search searchFiles = new Search();
         searchFiles(sourcePath, p -> p.toFile().getName().endsWith(excludeFiles)).forEach(System.out::println);
-
-         */
     }
 }
