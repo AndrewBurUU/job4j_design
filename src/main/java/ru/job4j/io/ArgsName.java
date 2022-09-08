@@ -18,7 +18,17 @@ public class ArgsName {
         return res;
     }
 
-    private void checkPair(String key, String value, String pair) {
+    private void checkPair(String pair) {
+        int delim = -1;
+        int keySymbolPos = -1;
+        String key = "";
+        String value = "";
+        delim = pair.indexOf('=');
+        keySymbolPos = pair.indexOf('-');
+        if (delim > 1 && keySymbolPos == 0) {
+            key = pair.substring(keySymbolPos + 1, delim);
+            value = pair.substring(delim + 1, pair.length());
+        }
         if (key.isEmpty() || value.isEmpty()) {
             throw new IllegalArgumentException(String.format("Incorrect pair: %s", pair));
         }
@@ -26,6 +36,9 @@ public class ArgsName {
 
     private void parse(String[] args) {
         /* TODO parse args to values. */
+        for (int i = 0; i < args.length; i++) {
+            checkPair(args[i]);
+        }
         int delim = -1;
         int keySymbolPos = -1;
         String key = "";
@@ -34,14 +47,10 @@ public class ArgsName {
             String pair = args[i];
             delim = pair.indexOf('=');
             keySymbolPos = pair.indexOf('-');
-            if (delim > 1 && keySymbolPos == 0) {
-                key = pair.substring(keySymbolPos + 1, delim);
-                value = pair.substring(delim + 1, pair.length());
-            }
-            checkPair(key, value, pair);
+            key = pair.substring(keySymbolPos + 1, delim);
+            value = pair.substring(delim + 1, pair.length());
             values.put(key, value);
         }
-
     }
 
     public static ArgsName of(String[] args) {
