@@ -31,7 +31,7 @@ public class Zip {
         }
     }
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         /*
         Zip zip = new Zip();
         ArgsName jvm = ArgsName.of(args);
