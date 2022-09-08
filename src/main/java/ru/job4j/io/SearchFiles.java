@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.function.*;
-import java.util.stream.*;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 

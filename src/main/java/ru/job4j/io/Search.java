@@ -26,5 +26,12 @@ public class Search {
         if (arguments.length == 0) {
             throw new IllegalArgumentException("Root folder is null. Usage ROOT_FOLDER.");
         }
+        if (arguments.length == 2) {
+            if (arguments[0].length() == 0 || arguments[1].length() == 0) {
+                throw new IllegalArgumentException("Incorrect parameter length.");
+            }
+        } else {
+            throw new IllegalArgumentException("Incorrect parameter numbers.");
+        }
     }
 }
