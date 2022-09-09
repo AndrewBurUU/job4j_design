@@ -7,7 +7,6 @@ import java.io.File;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import java.nio.file.Files;
 import java.util.*;
 
 public class Zip {
@@ -31,18 +30,9 @@ public class Zip {
         Path sourcePath = Paths.get(jvm.get("d"));
         String excludeFiles = jvm.get("e");
         String targetFile = jvm.get("o");
-        /*
-        Search searchFiles = new Search();
-        List<File> sourceFiles = searchFiles(sourcePath,
-                p -> p.toFile().getName().endsWith(excludeFiles))
-                .collect(Collectors.toList());
-        */
         List<File> sourceFiles = new ArrayList<>();
-        SearchFiles searcher = new SearchFiles(p -> !p.toFile().getName().endsWith(excludeFiles));
-        Files.walkFileTree(sourcePath, searcher);
-        for (Path path : searcher.getPaths()) {
-             sourceFiles.add(path.toFile());
-        }
+        Search.search(sourcePath,
+                path -> !path.toFile().getName().endsWith(excludeFiles)).forEach(path -> sourceFiles.add(path.toFile()));
         packFiles(sourceFiles, new File(targetFile));
     }
 }
