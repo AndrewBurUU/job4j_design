@@ -17,7 +17,7 @@ public class UsageEncoding {
     }
 
     public void writeDataInFile(String path, List<String> data) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(path, Charset.forName("WINDOWS-1251"), true))) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(path, Charset.forName("UTF-8"), true))) {
             data.forEach(pw::println);
         } catch (IOException e) {
             e.printStackTrace();
