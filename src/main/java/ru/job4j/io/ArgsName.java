@@ -32,24 +32,13 @@ public class ArgsName {
         if (key.isEmpty() || value.isEmpty()) {
             throw new IllegalArgumentException(String.format("Incorrect pair: %s", pair));
         }
+        values.put(key, value);
     }
 
     public void parse(String[] args) {
         /* TODO parse args to values. */
         for (int i = 0; i < args.length; i++) {
             checkPair(args[i]);
-        }
-        int delim = -1;
-        int keySymbolPos = -1;
-        String key = "";
-        String value = "";
-        for (int i = 0; i < args.length; i++) {
-            String pair = args[i];
-            delim = pair.indexOf('=');
-            keySymbolPos = pair.indexOf('-');
-            key = pair.substring(keySymbolPos + 1, delim);
-            value = pair.substring(delim + 1, pair.length());
-            values.put(key, value);
         }
     }
 
