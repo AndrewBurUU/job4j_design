@@ -24,15 +24,32 @@ public class Zip {
         }
     }
 
+    public static boolean checkArgs(Path sourcePath, String excludeFiles, String targetFile) {
+        boolean res = false;
+        if (!sourcePath.toFile().isDirectory()) {
+            throw new IllegalArgumentException(String.format("Not directory %s", sourcePath.toFile().getAbsoluteFile()));
+        }
+        if (excludeFiles.indexOf('.') == -1) {
+            throw new IllegalArgumentException(String.format("File Extension is incorrect: %s", excludeFiles));
+        }
+        if (!targetFile.endsWith(".zip")) {
+            throw new IllegalArgumentException(String.format("Zip file extension is incorrect: %s", targetFile));
+        }
+        res = true;
+        return res;
+    }
+
     public static void main(String[] args) throws IOException {
         ArgsName jvm = ArgsName.of(args);
         jvm.parse(args);
         Path sourcePath = Paths.get(jvm.get("d"));
         String excludeFiles = jvm.get("e");
         String targetFile = jvm.get("o");
-        List<File> sourceFiles = new ArrayList<>();
-        Search.search(sourcePath,
-                path -> !path.toFile().getName().endsWith(excludeFiles)).forEach(path -> sourceFiles.add(path.toFile()));
-        packFiles(sourceFiles, new File(targetFile));
+        if (checkArgs(sourcePath, excludeFiles, targetFile)) {
+            List<File> sourceFiles = new ArrayList<>();
+            Search.search(sourcePath,
+                    path -> !path.toFile().getName().endsWith(excludeFiles)).forEach(path -> sourceFiles.add(path.toFile()));
+            packFiles(sourceFiles, new File(targetFile));
+        }
     }
 }
