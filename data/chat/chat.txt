@@ -1,0 +1,12 @@
+User : раз
+Bot: World
+User : два
+Bot: World
+User : три
+Bot: Birds
+User : стоп
+User : четыре
+User : пять
+User : продолжить
+Bot: Word
+User : закончить
