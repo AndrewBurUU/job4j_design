@@ -23,15 +23,19 @@ public class Search {
     }
 
     public static void argumentsValidate(String[] arguments) {
-        if (arguments.length == 0) {
-            throw new IllegalArgumentException("Root folder is null. Usage ROOT_FOLDER.");
-        }
-        if (arguments.length == 2) {
-            if (arguments[0].length() == 0 || arguments[1].length() == 0) {
-                throw new IllegalArgumentException("Incorrect parameter length.");
-            }
-        } else {
+        if (arguments.length != 2) {
             throw new IllegalArgumentException("Incorrect parameter numbers.");
+        }
+        File file = new File(arguments[0]);
+        if (!file.exists()) {
+            throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
+        }
+        if (!file.isDirectory()) {
+            throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsoluteFile()));
+        }
+        String ext = arguments[1];
+        if (ext.indexOf('.') == -1) {
+            throw new IllegalArgumentException(String.format("File Extension is incorrect: %s", ext));
         }
     }
 }
