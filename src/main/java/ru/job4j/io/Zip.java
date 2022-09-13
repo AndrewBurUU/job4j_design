@@ -40,12 +40,9 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
-        /*
         if (args.length == 0) {
             throw new IllegalArgumentException("Names array is empty");
         }
-
-         */
         ArgsName jvm = ArgsName.of(args);
         jvm.parse(args);
         Path sourcePath = Paths.get(jvm.get("d"));
