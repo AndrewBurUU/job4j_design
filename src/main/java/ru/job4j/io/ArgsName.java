@@ -1,7 +1,7 @@
 package ru.job4j.io;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.*;
 
 public class ArgsName {
 
@@ -18,28 +18,40 @@ public class ArgsName {
         return res;
     }
 
-    private void checkPair(String pair) {
-        int delim = -1;
-        int keySymbolPos = -1;
-        String key = "";
-        String value = "";
-        delim = pair.indexOf('=');
-        keySymbolPos = pair.indexOf('-');
-        if (delim > 1 && keySymbolPos == 0) {
-            key = pair.substring(keySymbolPos + 1, delim);
-            value = pair.substring(delim + 1, pair.length());
+    private boolean checkPair(String pair) {
+        if (!pair.contains("=")) {
+            throw new IllegalArgumentException(
+                    String.format("this name: %s does not contain the symbol \"=\"", pair));
         }
-        if (key.isEmpty() || value.isEmpty()) {
-            throw new IllegalArgumentException(String.format("Incorrect pair: %s", pair));
+        if (!pair.startsWith("-")) {
+            throw new IllegalArgumentException(
+                    String.format("this name: %s does not contain the key symbol \"-\"", pair));
         }
-        values.put(key, value);
+        if (pair.startsWith("=") || pair.startsWith("-=")) {
+            throw new IllegalArgumentException(
+                    String.format("this name: %s does not contain a key", pair));
+        }
+        if (pair.indexOf("=") == pair.length() - 1) {
+            throw new IllegalArgumentException(
+                    String.format("this name: %s does not contain a value", pair));
+        }
+        return true;
     }
 
     public void parse(String[] args) {
         /* TODO parse args to values. */
-        for (int i = 0; i < args.length; i++) {
-            checkPair(args[i]);
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Names array is empty");
         }
+        values.putAll(Arrays.stream(args)
+                .map(String::trim)
+                .filter(this::checkPair)
+                .map(s -> s.split("=", 2))
+                .collect(Collectors.toMap(
+                        e -> e[0].substring(1,e[0].length()),
+                        e -> e[1],
+                        (first, second) -> String.format("%s+%s", first, second)
+                )));
     }
 
     public static ArgsName of(String[] args) {
