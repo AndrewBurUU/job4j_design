@@ -48,7 +48,7 @@ public class ArgsName {
                 .filter(this::checkPair)
                 .map(s -> s.split("=", 2))
                 .collect(Collectors.toMap(
-                        e -> e[0].substring(1,e[0].length()),
+                        e -> e[0].substring(1, e[0].length()),
                         e -> e[1],
                         (first, second) -> String.format("%s+%s", first, second)
                 )));
