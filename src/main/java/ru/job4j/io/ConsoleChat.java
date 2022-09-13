@@ -87,7 +87,7 @@ public class ConsoleChat {
     }
 
     public static void main(String[] args) {
-         ConsoleChat cc = new ConsoleChat("./data/chat/chat.txt", "./data/chat/botWords.txt");
+        ConsoleChat cc = new ConsoleChat("./data/chat/chat.txt", "./data/chat/botWords.txt");
         cc.run();
         cc.saveLog(cc.chat);
     }

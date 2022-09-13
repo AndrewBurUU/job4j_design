@@ -1,12 +1,21 @@
-User : раз
-Bot: World
-User : два
-Bot: World
-User : три
+User : привед
+Bot: Will
+User : птицы
+Bot: Word
+User : стлово
+Bot: Word
+User : полет
+Bot: Will
+User : земля
+Bot: Love
+User : небо
 Bot: Birds
 User : стоп
-User : четыре
-User : пять
+User : пауза
 User : продолжить
-Bot: Word
+Bot: Be
+User : быть
+Bot: Love
+User : любить
+Bot: Birds
 User : закончить
