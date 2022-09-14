@@ -71,14 +71,6 @@ public class CSVReader {
         }
     }
 
-    public static void readLog(File file) {
-        try (BufferedReader in = new BufferedReader(new FileReader(file))) {
-            in.lines().forEach(s -> System.out.println(s));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) throws Exception {
         if (args.length != 4) {
             throw new IllegalArgumentException("Incorrect parameter numbers.");
@@ -86,6 +78,5 @@ public class CSVReader {
         ArgsName jvm = ArgsName.of(args);
         argumentsValidate(jvm);
         handle(jvm);
-        readLog(new File(jvm.get("out")));
     }
 }
