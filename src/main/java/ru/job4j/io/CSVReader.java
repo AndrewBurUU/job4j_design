@@ -30,16 +30,14 @@ public class CSVReader {
     }
 
     public static void handle(ArgsName argsName) throws Exception {
-        File sourceFile = new File(argsName.get("path"));
-        File targetFile = new File(argsName.get("out"));
-        if ("stdout".equals(targetFile.toString())) {
-            targetFile = sourceFile;
-        }
         String[] filterNames = argsName.get("filter").split(",");
         int countLines = 0;
         List<Integer> resIndex = new ArrayList<>();
-        try (BufferedReader in = new BufferedReader(new FileReader(sourceFile));
-             PrintWriter out = new PrintWriter(new FileOutputStream(targetFile))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(argsName.get("path")));
+             PrintStream out = new PrintStream("stdout".equals(argsName.get("out"))
+                              ? System.out
+                              : new FileOutputStream(argsName.get("out")))
+        ) {
             String sourceString = "";
             while ((sourceString = in.readLine()) != null) {
                 var scanner = new Scanner(new ByteArrayInputStream(sourceString.getBytes()))
