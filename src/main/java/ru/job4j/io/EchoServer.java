@@ -3,10 +3,14 @@ package ru.job4j.io;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EchoServer {
 
-    public static void main(String[] args) throws IOException {
+    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
+
+    public static void main(String[] args) {
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!server.isClosed()) {
                 Socket socket = server.accept();
@@ -25,8 +29,12 @@ public class EchoServer {
                         server.close();
                     }
                     out.flush();
+                } catch (Exception e) {
+                    LOG.error("GetStream error", e);
                 }
             }
+        } catch (Exception e) {
+            LOG.error("Socket error", e);
         }
     }
 }
