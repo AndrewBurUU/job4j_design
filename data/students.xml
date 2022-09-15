@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<student outoftown="true" name="Andrew Johnson" age="31">
+    <warehouse github="https://github.com/CodePlay"/>
+    <langs>
+        <lang>CSharp</lang>
+        <lang>Java</lang>
+        <lang>JS</lang>
+    </langs>
+</student>
