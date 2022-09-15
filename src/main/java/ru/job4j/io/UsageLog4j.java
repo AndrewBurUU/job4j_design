@@ -8,10 +8,17 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        LOG.trace("trace message");
-        LOG.debug("debug message");
-        LOG.info("info message");
-        LOG.warn("warn message");
-        LOG.error("error message");
+        byte typeByte = 10;
+        short typeShort = 100;
+        int typeInt = 1000;
+        long typeLong = 1000;
+        float typeFloat = 1000;
+        double typeDouble = 1000;
+        char typeChar = 'z';
+        boolean typeBoolean = true;
+        LOG.debug("Byte: {}, short: {}, int: {}, long: {}, "
+                        + "float: {}, double: {}, char: {}, boolean: {}",
+                typeByte, typeShort, typeInt, typeLong,
+                typeFloat, typeDouble, typeChar, typeBoolean);
     }
 }
