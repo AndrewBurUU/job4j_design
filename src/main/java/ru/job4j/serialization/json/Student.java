@@ -10,12 +10,32 @@ public class Student {
     private final WareHouse wareHouse;
     private final String[] langs;
 
-    public Student(boolean outOfTown, String name, int age, WareHouse wareHouse, String[] langs) {
+    public Student(boolean outOfTown, String name, int age, WareHouse wareHouse, String... langs) {
         this.outOfTown = outOfTown;
         this.name = name;
         this.age = age;
         this.wareHouse = wareHouse;
         this.langs = langs;
+    }
+
+    public boolean isOutOfTown() {
+        return outOfTown;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public WareHouse getWareHouse() {
+        return wareHouse;
+    }
+
+    public String[] getLangs() {
+        return langs;
     }
 
     @Override

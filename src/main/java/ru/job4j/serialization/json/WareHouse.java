@@ -8,6 +8,10 @@ public class WareHouse {
         this.github = github;
     }
 
+    public String getGithub() {
+        return github;
+    }
+
     @Override
     public String toString() {
         return "WareHouse{"
