@@ -11,6 +11,6 @@ create table branchshop(
 
 create table shops(
 	id serial primary key,
-	shop_id references branchshop(id),
-	product_id references product(id)
+	shop_id int references branchshop(id),
+	product_id int references product(id)
 )

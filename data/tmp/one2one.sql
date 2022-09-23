@@ -7,5 +7,5 @@ create table branchshop(
 	id serial primary key,
 	name varchar(255),
 	address varchar(255),
-	director_id int references director(id)
+	director_id int references director(id) unique
 );
