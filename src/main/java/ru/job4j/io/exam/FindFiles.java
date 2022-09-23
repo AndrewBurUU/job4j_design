@@ -87,5 +87,4 @@ public class FindFiles {
             saveToFile(getFiles(sourcePath, maskType, maskString), logFile);
         }
     }
-
 }
