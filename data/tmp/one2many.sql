@@ -1,5 +1,6 @@
 create table shop(
 	id serial primary key,
+	count int
 );
 
 create table product(
