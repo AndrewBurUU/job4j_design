@@ -18,9 +18,9 @@ public class ImportDB {
 
     private boolean checkPair(String str) {
         String[] pair = str.split(";");
-        if (pair.length != 2 ||
-                pair[0].length() == 0 ||
-                pair[1].length() == 0
+        if (pair.length != 2
+                || pair[0].length() == 0
+                || pair[1].length() == 0
         ) {
             throw new IllegalArgumentException();
         }
@@ -29,13 +29,13 @@ public class ImportDB {
 
     private User newUser(String str) {
         String[] pair = str.split(";");
-        if (pair.length != 2 ||
-                pair[0].length() == 0 ||
-                pair[1].length() == 0
+        if (pair.length != 2
+                || pair[0].length() == 0
+                || pair[1].length() == 0
         ) {
             throw new IllegalArgumentException();
         }
-        return new User(pair[0],pair[1]);
+        return new User(pair[0], pair[1]);
     }
 
     public List<User> load() throws IOException {
