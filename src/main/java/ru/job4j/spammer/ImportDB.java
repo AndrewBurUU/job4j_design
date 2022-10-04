@@ -16,22 +16,11 @@ public class ImportDB {
         this.dump = dump;
     }
 
-    private boolean checkPair(String str) {
-        String[] pair = str.split(";");
-        if (pair.length != 2
-                || pair[0].length() == 0
-                || pair[1].length() == 0
-        ) {
-            throw new IllegalArgumentException();
-        }
-        return true;
-    }
-
     private User newUser(String str) {
         String[] pair = str.split(";");
         if (pair.length != 2
-                || pair[0].length() == 0
-                || pair[1].length() == 0
+                || pair[0].isBlank()
+                || pair[1].isBlank()
         ) {
             throw new IllegalArgumentException();
         }
