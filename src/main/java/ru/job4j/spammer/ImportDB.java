@@ -16,13 +16,32 @@ public class ImportDB {
         this.dump = dump;
     }
 
+    private boolean checkPair(String str) {
+        String[] pair = str.split(";");
+        if (pair.length != 2 ||
+                pair[0].length() == 0 ||
+                pair[1].length() == 0
+        ) {
+            throw new IllegalArgumentException();
+        }
+        return true;
+    }
+
+    private User newUser(String str) {
+        String[] pair = str.split(";");
+        if (pair.length != 2 ||
+                pair[0].length() == 0 ||
+                pair[1].length() == 0
+        ) {
+            throw new IllegalArgumentException();
+        }
+        return new User(pair[0],pair[1]);
+    }
+
     public List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            rd.lines().forEach(s -> users.add(
-                    new User(
-                            s.substring(0, s.indexOf(';')),
-                            s.substring(s.indexOf(';') + 1, s.length()))));
+            rd.lines().forEach(s -> users.add(newUser(s)));
         }
         return users;
     }
