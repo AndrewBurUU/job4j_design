@@ -5,43 +5,45 @@ import java.sql.*;
 import java.util.*;
 
 public class TableEditor implements AutoCloseable {
+
     private Connection connection;
 
     private Properties properties;
 
-    public TableEditor(Properties properties) throws ClassNotFoundException, SQLException {
+    public TableEditor(Properties properties) throws Exception {
         this.properties = properties;
         initConnection();
     }
 
-    private void initConnection() throws ClassNotFoundException, SQLException {
-        connection = null;
+    private void initConnection() throws Exception {
         Class.forName(properties.getProperty("driver"));
         String url = properties.getProperty("url");
         String login = properties.getProperty("username");
         String password = properties.getProperty("password");
-        try (Connection newConnection = DriverManager.getConnection(url, login, password)) {
-            connection = newConnection;
-        }
+        connection = DriverManager.getConnection(url, login, password);
     }
 
-    public void createTable(String tableName) throws ClassNotFoundException, SQLException {
+    public void createTable(String tableName) {
         try (Statement statement = connection.createStatement()) {
              String sql = String.format(
                      "create table if not exists %s();", tableName);
              statement.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public void dropTable(String tableName) throws SQLException {
+    public void dropTable(String tableName) {
         try (Statement statement = connection.createStatement()) {
             String sql = String.format(
-                    "drop table %s();", tableName);
+                    "drop table if exists %s;", tableName);
             statement.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public void addColumn(String tableName, String columnName, String type) throws SQLException {
+    public void addColumn(String tableName, String columnName, String type) {
         try (Statement statement = connection.createStatement()) {
             String sql = String.format(
                     "alter table %s add column %s %s;",
@@ -49,20 +51,24 @@ public class TableEditor implements AutoCloseable {
                     columnName,
                     type);
             statement.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public void dropColumn(String tableName, String columnName) throws SQLException {
+    public void dropColumn(String tableName, String columnName) {
         try (Statement statement = connection.createStatement()) {
             String sql = String.format(
                     "alter table %s drop column %s;",
                     tableName,
                     columnName);
             statement.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public void renameColumn(String tableName, String columnName, String newColumnName) throws SQLException {
+    public void renameColumn(String tableName, String columnName, String newColumnName) {
         try (Statement statement = connection.createStatement()) {
             String sql = String.format(
                     "alter table %s rename column %s to %s;",
@@ -70,6 +76,8 @@ public class TableEditor implements AutoCloseable {
                     columnName,
                     newColumnName);
             statement.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -109,6 +117,13 @@ public class TableEditor implements AutoCloseable {
         try (TableEditor tableEditor = new TableEditor(config)) {
             tableEditor.createTable("table1");
             System.out.println(getTableScheme(tableEditor.connection, "table1"));
+            tableEditor.addColumn("table1", "name", "varchar");
+            System.out.println(getTableScheme(tableEditor.connection, "table1"));
+            tableEditor.renameColumn("table1", "name", "newname");
+            System.out.println(getTableScheme(tableEditor.connection, "table1"));
+            tableEditor.dropColumn("table1", "newname");
+            System.out.println(getTableScheme(tableEditor.connection, "table1"));
+            tableEditor.dropTable("table1");
         }
     }
 }
