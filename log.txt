@@ -1,2 +1,17 @@
-d:\projects\job4j_design\data\io\botWords.txt
-d:\projects\job4j_design\data\io\tmp1\chat.txt
+[0.036s][info][gc] Using The Z Garbage Collector
+[0.454s][info][gc] GC(0) Garbage Collection (Warmup) 4M(17%)->4M(17%)
+[1.156s][info][gc] GC(1) Garbage Collection (Warmup) 6M(25%)->4M(17%)
+[76.253s][info][gc] GC(2) Garbage Collection (Warmup) 8M(33%)->6M(25%)
+[119.544s][info][gc] GC(3) Garbage Collection (Allocation Rate) 16M(67%)->14M(58%)
+[119.562s][info][gc] Allocation Stall (main) 4.914ms
+[119.563s][info][gc] GC(4) Garbage Collection (Allocation Stall) 24M(100%)->12M(50%)
+[119.650s][info][gc] GC(5) Garbage Collection (Allocation Rate) 20M(83%)->6M(25%)
+[119.741s][info][gc] GC(6) Garbage Collection (Allocation Rate) 6M(25%)->6M(25%)
+[119.849s][info][gc] GC(7) Garbage Collection (Allocation Rate) 6M(25%)->6M(25%)
+[119.941s][info][gc] GC(8) Garbage Collection (Allocation Rate) 6M(25%)->6M(25%)
+[120.051s][info][gc] GC(9) Garbage Collection (Allocation Rate) 6M(25%)->6M(25%)
+[120.144s][info][gc] GC(10) Garbage Collection (Allocation Rate) 6M(25%)->6M(25%)
+[120.240s][info][gc] GC(11) Garbage Collection (Allocation Rate) 6M(25%)->6M(25%)
+[121.147s][info][gc] GC(12) Garbage Collection (Allocation Rate) 6M(25%)->6M(25%)
+[121.243s][info][gc] GC(13) Garbage Collection (Allocation Rate) 6M(25%)->6M(25%)
+[179.353s][info][gc] GC(14) Garbage Collection (Proactive) 10M(42%)->10M(42%)
