@@ -24,7 +24,6 @@ public class Emulator {
                 Введите любое другое число для выхода.
             """;
 
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String dirName = "./data/files/";
