@@ -9,18 +9,17 @@ public abstract class AbstractCache<K, V> {
 
     protected final Map<K, SoftReference<V>> cache = new HashMap<>();
 
-    public void put(K key) throws IOException {
-        cache.put(key, new SoftReference<>(load(key)));
+    public void put(K key, V v) throws IOException {
+        cache.put(key, new SoftReference<>(v));
     }
 
     public V get(K key) throws IOException {
-        Object object = new Object();
-        object = cache.getOrDefault(key, null).get();
-        if (object == null) {
-            object = this.load(key);
-            this.put(key);
+        V value = cache.getOrDefault(key, new SoftReference<>(null)).get();
+        if (value == null) {
+            value = this.load(key);
+            this.put(key, value);
         }
-        return (V) object;
+        return value;
     }
 
     protected abstract V load(K key) throws IOException;

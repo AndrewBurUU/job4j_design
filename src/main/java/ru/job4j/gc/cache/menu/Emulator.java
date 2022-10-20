@@ -43,7 +43,7 @@ public class Emulator {
                 System.out.println(TEXT_FILENAME);
                 String fileName = scanner.nextLine();
                 try {
-                    dirFileCache.put(fileName);
+                    dirFileCache.put(fileName, fileName);
                     System.out.println("Принято");
                 } catch (IOException e) {
                     e.printStackTrace();
