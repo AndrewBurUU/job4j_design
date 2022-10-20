@@ -15,7 +15,7 @@ public abstract class AbstractCache<K, V> {
 
     public V get(K key) throws IOException {
         Object object = new Object();
-        object = cache.get(key).get();
+        object = cache.getOrDefault(key, null).get();
         if (object == null) {
             object = this.load(key);
             this.put(key);
