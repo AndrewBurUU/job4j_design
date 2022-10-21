@@ -2,7 +2,6 @@ package ru.job4j.gc.cache;
 
 import java.io.*;
 import java.nio.file.*;
-import java.util.*;
 
 public class DirFileCache extends AbstractCache<String, String> {
 

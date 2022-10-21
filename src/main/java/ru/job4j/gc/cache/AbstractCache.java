@@ -9,7 +9,7 @@ public abstract class AbstractCache<K, V> {
 
     protected final Map<K, SoftReference<V>> cache = new HashMap<>();
 
-    public void put(K key, V v) throws IOException {
+    public void put(K key, V v) {
         cache.put(key, new SoftReference<>(v));
     }
 
