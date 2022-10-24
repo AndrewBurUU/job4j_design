@@ -42,21 +42,13 @@ public class Emulator {
             } else if (PUT_FILE == userChoice) {
                 System.out.println(TEXT_FILENAME);
                 String fileName = scanner.nextLine();
-                try {
-                    dirFileCache.get(fileName);
-                    System.out.println("Принято");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                dirFileCache.get(fileName);
+                System.out.println("Принято");
             } else if (GET_FILE == userChoice) {
                 System.out.println(TEXT_FILENAME);
                 String fileName = scanner.nextLine();
                 System.out.println(TEXT_GET_FILE);
-                try {
-                    System.out.println(dirFileCache.get(fileName));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                System.out.println(dirFileCache.get(fileName));
             } else {
                 run = false;
                 System.out.println(EXIT);
