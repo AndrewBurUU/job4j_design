@@ -13,10 +13,14 @@ public abstract class AbstractCache<K, V> {
         cache.put(key, new SoftReference<>(v));
     }
 
-    public V get(K key) throws IOException {
+    public V get(K key) {
         V value = cache.getOrDefault(key, new SoftReference<>(null)).get();
         if (value == null) {
-            value = this.load(key);
+            try {
+                value = this.load(key);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             this.put(key, value);
         }
         return value;
