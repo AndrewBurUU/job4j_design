@@ -16,16 +16,12 @@ public abstract class AbstractCache<K, V> {
     public V get(K key) {
         V value = cache.getOrDefault(key, new SoftReference<>(null)).get();
         if (value == null) {
-            try {
-                value = this.load(key);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            value = this.load(key);
             this.put(key, value);
         }
         return value;
     }
 
-    protected abstract V load(K key) throws IOException;
+    protected abstract V load(K key);
 
 }
