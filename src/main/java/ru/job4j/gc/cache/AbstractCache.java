@@ -1,6 +1,5 @@
 package ru.job4j.gc.cache;
 
-import java.io.*;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;

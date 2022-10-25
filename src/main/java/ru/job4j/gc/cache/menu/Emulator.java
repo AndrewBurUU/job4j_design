@@ -1,8 +1,6 @@
 package ru.job4j.gc.cache.menu;
 
 import ru.job4j.gc.cache.*;
-
-import java.io.*;
 import java.util.*;
 
 public class Emulator {
