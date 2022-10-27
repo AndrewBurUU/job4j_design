@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Calendar;
 import java.util.List;
 
+@Disabled
 class CinemaTest {
 
     @Test
@@ -37,5 +38,38 @@ class CinemaTest {
             cinema.buy(account, -1, 1, date);
         });
     }
+
+    @Test
+    public void whenBuyOnInvalidColThenGetException() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        assertThrows(IllegalArgumentException.class, () -> {
+            cinema.buy(account, 1, -1, date);
+        });
+    }
+
+    @Test
+    public void whenBuyOnInvalidDateThenGetException() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DAY_OF_MONTH, -1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            cinema.buy(account, 1, 1, date);
+        });
+    }
+
+    @Test
+    public void whenBuyOnInvalidTicketThenGetException() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        Ticket ticket = cinema.buy(account, 1, 1, date);
+        assertThrows(IllegalArgumentException.class, () -> {
+            cinema.buy(account, 1, 1, date);
+        });
+   }
+
 
 }
