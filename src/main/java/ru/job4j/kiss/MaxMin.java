@@ -6,15 +6,13 @@ import java.util.function.*;
 public class MaxMin {
 
     public <T> T condition(List<T> value, BiPredicate<T, T> predicate) {
-        T res;
         if (value.isEmpty()) {
-            res = null;
-        } else {
-            res = value.get(0);
-            for (T t: value) {
-                if (predicate.test(t, res)) {
-                    res = t;
-                }
+            return null;
+        }
+        T res = value.get(0);
+        for (T t: value) {
+            if (predicate.test(t, res)) {
+            res = t;
             }
         }
         return res;
