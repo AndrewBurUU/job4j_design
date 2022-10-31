@@ -11,18 +11,11 @@ public class ReportEngine implements Report {
 
     private final Store store;
     private final DateTimeParser<Calendar> dateTimeParser;
-    private final Comparator<Employee> comparator;
+    private static final Comparator<Employee> COMPARATOR = Comparator.comparingDouble(Employee::getSalary).reversed();
 
     public ReportEngine(Store store, DateTimeParser<Calendar> dateTimeParser) {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
-        this.comparator = null;
-    }
-
-    public ReportEngine(Store store, DateTimeParser<Calendar> dateTimeParser, Comparator<Employee> comparator) {
-        this.store = store;
-        this.dateTimeParser = dateTimeParser;
-        this.comparator = comparator;
     }
 
     /**
@@ -54,14 +47,12 @@ public class ReportEngine implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        text.append("Name; Hired; Fired; Salary;")
+        text.append("Name; Salary;")
                 .append(System.lineSeparator());
         List<Employee> employeeList = store.findBy(filter);
-        Collections.sort(employeeList, comparator);
+        Collections.sort(employeeList, COMPARATOR);
         for (Employee employee : employeeList) {
             text.append(employee.getName()).append(" ")
-                    .append(dateTimeParser.parse(employee.getHired())).append(" ")
-                    .append(dateTimeParser.parse(employee.getFired())).append(" ")
                     .append(employee.getSalary())
                     .append(System.lineSeparator());
         }
