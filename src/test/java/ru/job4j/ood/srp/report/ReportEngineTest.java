@@ -49,7 +49,6 @@ class ReportEngineTest {
     @Test
     public void whenHRRepGenerated() {
         MemStore store = new MemStore();
-        Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", null, null, 100);
         store.add(worker);
         worker = new Employee("Piter", null, null, 150);
@@ -62,7 +61,7 @@ class ReportEngineTest {
                 .append(System.lineSeparator())
                 .append("Ivan").append(" ")
                 .append(100);
-        Report engine = new ReportEngine(store, null);
+        Report engine = new ReportHR(store);
         String res = engine.generate(em -> true);
         assertThat(expected.toString()).isEqualTo(res);
     }
@@ -79,7 +78,6 @@ class ReportEngineTest {
         Files.writeString(expectedFile.toPath(), expectedData);
 
         MemStore store = new MemStore();
-        Calendar now = Calendar.getInstance();
         Employee worker = new Employee(
                 "Ivan",
                 new GregorianCalendar(2021, 10, 01),
