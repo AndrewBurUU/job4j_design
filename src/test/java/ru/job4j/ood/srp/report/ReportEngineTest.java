@@ -1,5 +1,6 @@
 package ru.job4j.ood.srp.report;
 
+import com.google.gson.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.io.*;
 import ru.job4j.ood.srp.currency.Currency;
@@ -94,4 +95,22 @@ class ReportEngineTest {
         String res = engine.generate(em -> true);
         assertThat(expected.toString()).isEqualTo(res);
     }
+
+    @Test
+    public void whenJSONRepGenerated(@TempDir Path folder) throws Exception {
+        StringBuilder expected = new StringBuilder()
+                .append("{\"name\":\"Ivan\",\"salary\":100.0}")
+                .append("{\"name\":\"Peter\",\"salary\":150.0}");
+        MemStore store = new MemStore();
+        Employee worker = new Employee("Ivan", null, null, 100);
+        store.add(worker);
+        worker = new Employee("Peter", null, null, 150);
+        store.add(worker);
+        final Gson gson = new GsonBuilder().create();
+        DateTimeParser<Calendar> parser = new ReportDateTimeParser();
+        Report engine = new ReportJSON(store, parser, gson);
+        String res = engine.generate(em -> true);
+        assertThat(expected.toString()).isEqualTo(res);
+    }
+
 }
