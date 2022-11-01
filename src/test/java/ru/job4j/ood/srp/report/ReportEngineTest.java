@@ -2,15 +2,12 @@ package ru.job4j.ood.srp.report;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.io.*;
-import ru.job4j.io.*;
-import ru.job4j.ood.srp.currency.*;
 import ru.job4j.ood.srp.currency.Currency;
 import ru.job4j.ood.srp.formatter.DateTimeParser;
 import ru.job4j.ood.srp.formatter.ReportDateTimeParser;
 import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.MemStore;
 
-import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
@@ -39,11 +36,24 @@ class ReportEngineTest {
     }
 
     @Test
-    public void whenCurrencyConverter() {
-        double expected = 6500;
-        InMemoryCurrencyConverter inMemoryCurrencyConverter = new InMemoryCurrencyConverter();
-        double res = inMemoryCurrencyConverter.convert(Currency.USD, 100, Currency.RUB);
-        assertThat(expected).isEqualTo(res);
+    public void whenBookKeepingReportGenerated() {
+        MemStore store = new MemStore();
+        Employee worker = new Employee("Ivan", null, null, 100);
+        store.add(worker);
+        worker = new Employee("Piter", null, null, 150);
+        store.add(worker);
+        StringBuilder expected = new StringBuilder()
+                .append("Name; Salary;")
+                .append(System.lineSeparator())
+                .append("Ivan").append(" ")
+                .append(6500.0)
+                .append(System.lineSeparator())
+                .append("Piter").append(" ")
+                .append(9750.0)
+                .append(System.lineSeparator());
+        Report engine = new ReportBookKeeping(store, Currency.USD, Currency.RUB);
+        String res = engine.generate(em -> true);
+        assertThat(expected.toString()).isEqualTo(res);
     }
 
     @Test
@@ -68,33 +78,20 @@ class ReportEngineTest {
 
     @Test
     public void whenItRepGenerated(@TempDir Path folder) throws Exception {
-        String expectedData = String.join(
-                System.lineSeparator(),
-                "Name; Hired; Fired; Salary;",
-                "Ivan; 2021.10.01; 2022.10.01; 1000;",
-                "Peter; 2000.10.01; 2022.10.31; 2000;"
-        );
-        File expectedFile = folder.resolve("source.csv").toFile();
-        Files.writeString(expectedFile.toPath(), expectedData);
-
+        StringBuilder expected = new StringBuilder()
+                .append("Name;Salary")
+                .append(System.lineSeparator())
+                .append("Ivan;1000.0")
+                .append(System.lineSeparator())
+                .append("Peter;2000.0")
+                .append(System.lineSeparator());
         MemStore store = new MemStore();
-        Employee worker = new Employee(
-                "Ivan",
-                new GregorianCalendar(2021, 10, 01),
-                new GregorianCalendar(2022, 10, 01),
-                1000);
+        Employee worker = new Employee("Ivan", null, null, 1000);
         store.add(worker);
-        worker = new Employee(
-                "Peter",
-                new GregorianCalendar(2000, 10, 01),
-                new GregorianCalendar(2022, 10, 31),
-                2000);
+        worker = new Employee("Peter", null, null, 2000);
         store.add(worker);
-        DateTimeParser<Calendar> parser = new ReportDateTimeParser();
-        Report engine = new ReportEngine(store, parser);
-        String resData = engine.generate(em -> true);
-        File resFile = folder.resolve("target.csv").toFile();
-        Files.writeString(resFile.toPath(), resData);
-        assertThat(expectedFile).isEqualTo(resFile);
+        Report engine = new ReportIT(store);
+        String res = engine.generate(em -> true);
+        assertThat(expected.toString()).isEqualTo(res);
     }
 }

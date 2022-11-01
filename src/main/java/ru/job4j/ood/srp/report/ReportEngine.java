@@ -27,7 +27,8 @@ public class ReportEngine implements Report {
                     .append(dateTimeParser.parse(employee.getHired())).append(" ")
                     .append(dateTimeParser.parse(employee.getFired())).append(" ")
                     .append(employee.getSalary())
-                    .append(System.lineSeparator());        }
+                    .append(System.lineSeparator());
+        }
         return text.toString();
     }
 
