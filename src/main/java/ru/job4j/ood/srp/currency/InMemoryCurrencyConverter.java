@@ -18,8 +18,4 @@ public class InMemoryCurrencyConverter implements CurrencyConverter {
     public double convert(Currency source, double sourceValue, Currency target) {
         return sourceValue * conversationTable[source.ordinal()][target.ordinal()];
     }
-
-    public static void main(String[] args) {
-        System.out.println();
-    }
 }
