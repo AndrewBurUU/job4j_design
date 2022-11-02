@@ -3,6 +3,7 @@ package ru.job4j.ood.srp.report;
 import com.google.gson.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.io.*;
+import ru.job4j.ood.srp.currency.*;
 import ru.job4j.ood.srp.currency.Currency;
 import ru.job4j.ood.srp.formatter.DateTimeParser;
 import ru.job4j.ood.srp.formatter.ReportDateTimeParser;
@@ -65,10 +66,9 @@ class ReportEngineTest {
                 150);
         store.add(worker);
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
+        InMemoryCurrencyConverter inMemoryCurrencyConverter = new InMemoryCurrencyConverter();
         Report engine = new ReportBookKeeping(store,
-                parser,
-                Currency.USD,
-                Currency.RUB);
+                parser,inMemoryCurrencyConverter);
         String res = engine.generate(em -> true);
         assertThat(expected.toString()).isEqualTo(res);
     }
