@@ -1,6 +1,5 @@
 package ru.job4j.ood.srp.model;
 
-import javax.xml.bind.annotation.*;
 import java.util.*;
 
 public class Employee {
@@ -10,24 +9,7 @@ public class Employee {
     private Calendar fired;
     private double salary;
 
-    @XmlRootElement
-    public static class Employees {
-
-        private List<Employee> employees;
-
-        public Employees() { }
-
-        public Employees(List<Employee> employees) {
-            this.employees = employees;
-        }
-
-        public List<Employee> getEmployees() {
-            return employees;
-        }
-
-        public void setEmployees(List<Employee> employees) {
-            this.employees = employees;
-        }
+    public Employee() {
     }
 
     public Employee(String name, Calendar hired, Calendar fired, double salary) {

@@ -8,8 +8,6 @@ import ru.job4j.ood.srp.formatter.ReportDateTimeParser;
 import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.MemStore;
 
-import javax.xml.bind.*;
-import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
@@ -132,44 +130,27 @@ class ReportEngineTest {
         assertThat(expected.toString()).isEqualTo(res);
     }
 
-    @Disabled
     @Test
-    public void whenXMLRepGenerated() throws JAXBException {
-        StringBuilder expected = new StringBuilder()
-                .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
-                .append(System.lineSeparator())
-                .append("<employees>")
-                .append(System.lineSeparator())
-                .append("    <employees>")
-                .append(System.lineSeparator())
-                .append("        <fired>2021-10-01T00:00:00+08:00</fired>")
-                .append(System.lineSeparator())
-                .append("        <hired>2020-10-01T00:00:00+08:00</hired>")
-                .append(System.lineSeparator())
-                .append("        <name>Ivan</name>")
-                .append(System.lineSeparator())
-                .append("        <salary>100.0</salary>")
-                .append(System.lineSeparator())
-                .append("    </employees>")
-                .append(System.lineSeparator())
-                .append("</employees>")
-                .append(System.lineSeparator());
-        JAXBContext context = JAXBContext.newInstance(Employee.Employees.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        String res = "";
-        List<Employee> store = new ArrayList<>();
+    public void whenXMLRepGenerated() {
+        StringJoiner expected = new StringJoiner("\n");
+        expected.add("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+        expected.add("<employees>");
+        expected.add("    <employees>");
+        expected.add("        <fired>2021-10-01T00:00:00+08:00</fired>");
+        expected.add("        <hired>2020-10-01T00:00:00+08:00</hired>");
+        expected.add("        <name>Ivan</name>");
+        expected.add("        <salary>100.0</salary>");
+        expected.add("    </employees>");
+        expected.add("</employees>");
+        expected.add("");
+        MemStore store = new MemStore();
         Employee worker = new Employee("Ivan",
                 new GregorianCalendar(2020, Calendar.OCTOBER, 01),
                 new GregorianCalendar(2021, Calendar.OCTOBER, 01),
                 100);
         store.add(worker);
-        try (StringWriter writer = new StringWriter()) {
-            marshaller.marshal(new Employee.Employees(store), writer);
-            res = writer.getBuffer().toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Report engine = new ReportXML(store);
+        String res = engine.generate(em -> true);
         assertThat(expected.toString()).isEqualTo(res);
     }
 }
