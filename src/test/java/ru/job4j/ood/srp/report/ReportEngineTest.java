@@ -9,6 +9,7 @@ import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.MemStore;
 
 import java.nio.file.*;
+import java.text.*;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -132,25 +133,25 @@ class ReportEngineTest {
 
     @Test
     public void whenXMLRepGenerated() {
-        StringJoiner expected = new StringJoiner("\n");
-        expected.add("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
-        expected.add("<employees>");
-        expected.add("    <employees>");
-        expected.add("        <fired>2021-10-01T00:00:00+08:00</fired>");
-        expected.add("        <hired>2020-10-01T00:00:00+08:00</hired>");
-        expected.add("        <name>Ivan</name>");
-        expected.add("        <salary>100.0</salary>");
-        expected.add("    </employees>");
-        expected.add("</employees>");
-        expected.add("");
         MemStore store = new MemStore();
-        Employee worker = new Employee("Ivan",
-                new GregorianCalendar(2020, Calendar.OCTOBER, 01),
-                new GregorianCalendar(2021, Calendar.OCTOBER, 01),
-                100);
+        Calendar now = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        String date = formatter.format(now.getTime());
+        Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report engine = new ReportXML(store);
         String res = engine.generate(em -> true);
+        StringJoiner expected = new StringJoiner("\n");
+        expected.add("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
+        expected.add("<report>");
+        expected.add("    <employees>");
+        expected.add(String.format("        <fired>%s</fired>", date));
+        expected.add(String.format("        <hired>%s</hired>", date));
+        expected.add("        <name>Ivan</name>");
+        expected.add("        <salary>100.0</salary>");
+        expected.add("    </employees>");
+        expected.add("</report>");
+        expected.add("");
         assertThat(expected.toString()).isEqualTo(res);
     }
 }

@@ -12,12 +12,21 @@ import java.util.function.*;
 public class ReportXML implements Report {
 
     private final Store store;
+    private JAXBContext context;
+    private Marshaller marshaller;
 
     public ReportXML(Store store) {
         this.store = store;
+        try {
+            this.context = JAXBContext.newInstance(Employees.class);
+            this.marshaller = context.createMarshaller();
+            this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 
-    @XmlRootElement(name = "employees")
+    @XmlRootElement(name = "report")
     public static class Employees {
 
         private List<Employee> employees;
@@ -42,9 +51,6 @@ public class ReportXML implements Report {
     public String generate(Predicate<Employee> filter) {
         String res = "";
         try {
-            JAXBContext context = JAXBContext.newInstance(Employees.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             try (StringWriter writer = new StringWriter()) {
                 marshaller.marshal(new Employees(store.findBy(filter)), writer);
                 res = writer.getBuffer().toString();
