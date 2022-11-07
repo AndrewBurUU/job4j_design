@@ -1,6 +1,6 @@
 package ru.job4j.ood.lsp.homework.example1;
 
-public class Tram extends RailwayTransport{
+public class Tram extends RailwayTransport {
 
     public Tram(int countItems) {
         super(countItems);

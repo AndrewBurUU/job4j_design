@@ -1,6 +1,6 @@
 package ru.job4j.ood.lsp.homework.example3;
 
-public class SomeCarOwner extends CarOwner{
+public class SomeCarOwner extends CarOwner {
 
     public SomeCarOwner(CarNumber carNumber) {
         super(carNumber);

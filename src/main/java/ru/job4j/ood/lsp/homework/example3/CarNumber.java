@@ -11,7 +11,6 @@ public class CarNumber {
         this.number = number;
     }
 
-
     public int getRegionCode() {
         return regionCode;
     }
