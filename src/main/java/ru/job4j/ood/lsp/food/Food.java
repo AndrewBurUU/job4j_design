@@ -26,6 +26,14 @@ public class Food {
         this.discount = discount;
     }
 
+    public Food(String name, LocalDate createDate, LocalDate expiryDate, int price, int discount) {
+        this.name = name;
+        this.createDate = createDate;
+        this.expiryDate = expiryDate;
+        this.price = price;
+        this.discount = discount;
+    }
+
     public int getId() {
         return id;
     }
@@ -64,5 +72,21 @@ public class Food {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Food{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", expiryDate=" + expiryDate
+                + ", createDate=" + createDate
+                + ", price=" + price
+                + ", discount=" + discount
+                + '}';
     }
 }

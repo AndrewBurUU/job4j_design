@@ -21,7 +21,7 @@ public abstract class AbstractStore implements Store {
     private int indexOf(int id) {
         int rsl = -1;
         for (int index = 0; index < foods.size(); index++) {
-            if (foods.get(index).getId() == ids) {
+            if (foods.get(index).getId() == id) {
                 rsl = index;
                 break;
             }
@@ -38,11 +38,29 @@ public abstract class AbstractStore implements Store {
         return food;
     }
 
+    @Override
+    public List<Food> findByName(String key) {
+        ArrayList<Food> itemsByName = new ArrayList<>();
+        for (int i = 0; i < foods.size(); i++) {
+            if (foods.get(i) != null && foods.get(i).getName().contains(key)) {
+                itemsByName.add(foods.get(i));
+            }
+        }
+        return itemsByName;
+    }
+
+    @Override
+    public Food findById(int id) {
+        int index = indexOf(id);
+        return index != -1 ? foods.get(index) : null;
+    }
+
     public List<Food> getFoods() {
         return foods;
     }
 
     public void setFoods(Food food) {
+        food.setId(ids++);
         this.foods.add(food);
     }
 

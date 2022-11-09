@@ -24,24 +24,39 @@ public class ControlQuality {
         );
         LocalDate createDate = LocalDate.of(2022, 10, 1);
         LocalDate expiryDate = LocalDate.of(2022, 10, 31);
-        Food food = new Fruit(1, "Apple", createDate, expiryDate, 100, 10);
         ControlQuality controlQuality = new ControlQuality();
         /**WareHouse*/
+        Food apple = new Fruit("Apple", createDate, expiryDate, 100, 10);
         LocalDate workDate = LocalDate.of(2022, 10, 3);
-        Store store = controlQuality.checkFood(food, workDate, stores);
-        System.out.println(store);
+        controlQuality.checkFood(apple, workDate, stores);
         /**Shop*/
+        Food potato = new Vegetable("Potato", createDate, expiryDate, 100, 10);
         workDate = LocalDate.of(2022, 10, 15);
-        store = controlQuality.checkFood(food, workDate, stores);
-        System.out.println(store);
+        controlQuality.checkFood(potato, workDate, stores);
         /**Shop discount*/
+        Food potatoCheap = new Vegetable("PotatoCheap", createDate, expiryDate, 100, 10);
         workDate = LocalDate.of(2022, 10, 29);
-        store = controlQuality.checkFood(food, workDate, stores);
-        System.out.println(store);
+        controlQuality.checkFood(potatoCheap, workDate, stores);
         /**Trash*/
+        Food milk = new Milk("Milk", createDate, expiryDate, 100, 10);
         workDate = LocalDate.of(2022, 11, 01);
-        store = controlQuality.checkFood(food, workDate, stores);
-        System.out.println(store);
+        controlQuality.checkFood(milk, workDate, stores);
 
+        /**
+       WareHouse wareHouse = (WareHouse) stores.get(0);
+        List<Food> foods = wareHouse.getFoods();
+        foods.forEach(food1 -> System.out.println(food1));
+*/
+
+        for (Store store1 : stores) {
+            System.out.println(store1.getName());
+            /**
+            List<Food> foodList = store1.getFoods();
+            foodList.forEach(food -> System.out.println(food));
+            foodList = store1.findByName("Potato");
+            foodList.forEach(food -> System.out.println(food));
+            */
+            System.out.println(store1.findById(1));
+        }
     }
 }
