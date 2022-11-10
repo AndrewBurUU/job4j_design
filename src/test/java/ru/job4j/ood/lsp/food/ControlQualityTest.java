@@ -25,7 +25,7 @@ class ControlQualityTest {
         Food apple = new Fruit(1, "Apple", createDate, expiryDate, 100, 10);
         LocalDate workDate = LocalDate.of(2022, 10, 3);
         Store res = controlQuality.checkFood(apple, workDate, stores);
-//        assertThat(res.getName()).isEqualTo(expected);
+/**        assertThat(res.getName()).isEqualTo(expected);*/
     }
 
     @Test
@@ -37,7 +37,7 @@ class ControlQualityTest {
         Food potato = new Vegetable(1, "Potato", createDate, expiryDate, 100, 10);
         LocalDate workDate = LocalDate.of(2022, 10, 15);
         Store res = controlQuality.checkFood(potato, workDate, stores);
-//        assertThat(res.getName()).isEqualTo(expected);
+/**        assertThat(res.getName()).isEqualTo(expected);*/
     }
 
     @Test
@@ -50,8 +50,8 @@ class ControlQualityTest {
         LocalDate workDate = LocalDate.of(2022, 10, 29);
         controlQuality.checkFood(potatoCheap, workDate, stores);
         Shop shop = (Shop) stores.get(1);
-//        Food res = shop.findById(1);
-//        assertThat(res.getPrice()).isEqualTo(expected);
+/**        Food res = shop.findById(1);
+       assertThat(res.getPrice()).isEqualTo(expected);*/
     }
 
     @Test
@@ -63,7 +63,7 @@ class ControlQualityTest {
         Food milk = new Milk(1, "Milk", createDate, expiryDate, 100, 10);
         LocalDate workDate = LocalDate.of(2022, 11, 01);
         Store res = controlQuality.checkFood(milk, workDate, stores);
-//        assertThat(res.getName()).isEqualTo(expected);
+/**        assertThat(res.getName()).isEqualTo(expected);*/
     }
 
 }

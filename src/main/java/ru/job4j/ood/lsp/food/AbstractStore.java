@@ -49,8 +49,8 @@ public abstract class AbstractStore implements Store {
     public double getPercent(Food food) {
         this.periodExpired = ChronoUnit.DAYS.between(food.getCreateDate(), food.getExpiryDate());
         this.periodOnDate = ChronoUnit.DAYS.between(food.getCreateDate(), localDate);
-//        this.freshNess25 = periodExpired * 25 / 100;
-//        this.freshNess75 = periodExpired * 75 / 100;
+/**        this.freshNess25 = periodExpired * 25 / 100;
+      this.freshNess75 = periodExpired * 75 / 100;*/
         return periodOnDate * 100 / periodExpired;
     }
 
