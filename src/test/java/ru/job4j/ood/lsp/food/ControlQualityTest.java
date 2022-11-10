@@ -23,8 +23,7 @@ class ControlQualityTest {
         LocalDate expiryDate = LocalDate.of(2022, 10, 31);
         ControlQuality controlQuality = new ControlQuality(stores);
         Food apple = new Fruit(1, "Apple", createDate, expiryDate, 100, 10);
-        LocalDate workDate = LocalDate.of(2022, 10, 3);
-        Store res = controlQuality.checkFood(apple, workDate, stores);
+        Store res = controlQuality.checkFood(apple, stores);
 /**        assertThat(res.getName()).isEqualTo(expected);*/
     }
 
@@ -35,8 +34,7 @@ class ControlQualityTest {
         LocalDate expiryDate = LocalDate.of(2022, 10, 31);
         ControlQuality controlQuality = new ControlQuality(stores);
         Food potato = new Vegetable(1, "Potato", createDate, expiryDate, 100, 10);
-        LocalDate workDate = LocalDate.of(2022, 10, 15);
-        Store res = controlQuality.checkFood(potato, workDate, stores);
+        Store res = controlQuality.checkFood(potato, stores);
 /**        assertThat(res.getName()).isEqualTo(expected);*/
     }
 
@@ -47,8 +45,7 @@ class ControlQualityTest {
         LocalDate expiryDate = LocalDate.of(2022, 10, 31);
         ControlQuality controlQuality = new ControlQuality(stores);
         Food potatoCheap = new Vegetable(1, "PotatoCheap", createDate, expiryDate, 100, 10);
-        LocalDate workDate = LocalDate.of(2022, 10, 29);
-        controlQuality.checkFood(potatoCheap, workDate, stores);
+        controlQuality.checkFood(potatoCheap, stores);
         Shop shop = (Shop) stores.get(1);
 /**        Food res = shop.findById(1);
        assertThat(res.getPrice()).isEqualTo(expected);*/
@@ -61,8 +58,7 @@ class ControlQualityTest {
         LocalDate expiryDate = LocalDate.of(2022, 10, 31);
         ControlQuality controlQuality = new ControlQuality(stores);
         Food milk = new Milk(1, "Milk", createDate, expiryDate, 100, 10);
-        LocalDate workDate = LocalDate.of(2022, 11, 01);
-        Store res = controlQuality.checkFood(milk, workDate, stores);
+        Store res = controlQuality.checkFood(milk, stores);
 /**        assertThat(res.getName()).isEqualTo(expected);*/
     }
 

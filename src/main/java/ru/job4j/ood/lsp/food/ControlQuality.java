@@ -14,7 +14,7 @@ public class ControlQuality {
         this.stores = stores;
     }
 
-    public Store checkFood(Food food, LocalDate localDate, List<Store> stores) {
+    public Store checkFood(Food food, List<Store> stores) {
         Store res = null;
         for (Store store : stores) {
             if (store.add(food)) {
@@ -31,16 +31,28 @@ public class ControlQuality {
                 new Shop("shop"),
                 new Trash("trash")
         ));
-        LocalDate createDate = LocalDate.of(2022, 10, 1);
-        LocalDate expiryDate = LocalDate.of(2022, 10, 31);
+/**        LocalDate createDate = LocalDate.of(2022, 10, 1);
+        LocalDate expiryDate = LocalDate.of(2022, 10, 31);*/
         /**WareHouse*/
+        LocalDate createDate = LocalDate.of(2022, 11, 9);
+        LocalDate expiryDate = LocalDate.of(2022, 11, 30);
         Food apple = new Fruit("Apple", createDate, expiryDate, 100, 10);
-        LocalDate workDate = LocalDate.of(2022, 10, 3);
-        controlQuality.checkFood(apple, workDate, controlQuality.stores);
+        controlQuality.checkFood(apple, controlQuality.stores);
         /**Shop*/
+        createDate = LocalDate.of(2022, 11, 1);
+        expiryDate = LocalDate.of(2022, 11, 30);
         Food potato = new Vegetable("Potato", createDate, expiryDate, 100, 10);
-        workDate = LocalDate.of(2022, 10, 15);
-        controlQuality.checkFood(potato, workDate, controlQuality.stores);
+        controlQuality.checkFood(potato, controlQuality.stores);
+        /**Shop discount*/
+        createDate = LocalDate.of(2022, 11, 1);
+        expiryDate = LocalDate.of(2022, 11, 12);
+        Food potatoCheap = new Vegetable("PotatoCheap", createDate, expiryDate, 100, 10);
+        controlQuality.checkFood(potatoCheap, controlQuality.stores);
+        /**Trash*/
+        createDate = LocalDate.of(2022, 11, 1);
+        expiryDate = LocalDate.of(2022, 11, 9);
+        Food milk = new Milk("Milk", createDate, expiryDate, 100, 10);
+        controlQuality.checkFood(milk, controlQuality.stores);
 
        /**
        WareHouse wareHouse = (WareHouse) controlQuality.stores.get(0);

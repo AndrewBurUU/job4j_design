@@ -13,9 +13,6 @@ public abstract class AbstractStore implements Store {
     private String name;
     private long periodExpired;
     private long periodOnDate;
-    private long freshNess25;
-    private long freshNess75;
-    private LocalDate localDate;
 
     public AbstractStore(String name) {
         this.name = name;
@@ -47,10 +44,9 @@ public abstract class AbstractStore implements Store {
     }
 
     public double getPercent(Food food) {
+        LocalDate localDate = LocalDate.now();
         this.periodExpired = ChronoUnit.DAYS.between(food.getCreateDate(), food.getExpiryDate());
         this.periodOnDate = ChronoUnit.DAYS.between(food.getCreateDate(), localDate);
-/**        this.freshNess25 = periodExpired * 25 / 100;
-      this.freshNess75 = periodExpired * 75 / 100;*/
         return periodOnDate * 100 / periodExpired;
     }
 
@@ -73,14 +69,6 @@ public abstract class AbstractStore implements Store {
 
     public long getPeriodOnDate() {
         return periodOnDate;
-    }
-
-    public long getFreshNess25() {
-        return freshNess25;
-    }
-
-    public long getFreshNess75() {
-        return freshNess75;
     }
 
 }

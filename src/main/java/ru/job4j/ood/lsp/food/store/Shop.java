@@ -3,9 +3,11 @@ package ru.job4j.ood.lsp.food.store;
 import ru.job4j.ood.lsp.food.*;
 import ru.job4j.ood.lsp.food.model.*;
 
-import java.time.*;
-
 public class Shop extends AbstractStore {
+
+    private static final int FRESHNESS25 = 25;
+    private static final int FRESHNESS75 = 75;
+    private static final int FRESHNESS100 = 100;
 
     public Shop(String name) {
         super(name);
@@ -14,12 +16,7 @@ public class Shop extends AbstractStore {
     @Override
     public boolean add(Food food) {
         boolean res = false;
-        super.add(food);
-        if (super.getPeriodOnDate() > super.getFreshNess25()
-                && super.getPeriodOnDate() < super.getPeriodExpired()) {
-            if (super.getPeriodOnDate() > super.getFreshNess75()) {
-                food.setPrice(food.getPrice() - food.getDiscount());
-            }
+        if (isExpired(food)) {
             super.setFoods(food);
             res = true;
         }
@@ -28,7 +25,15 @@ public class Shop extends AbstractStore {
 
     @Override
     public boolean isExpired(Food food) {
-        return true;
+        boolean res = false;
+        double freshness = super.getPercent(food);
+        if (freshness > FRESHNESS25 && freshness < FRESHNESS100) {
+            if (freshness > FRESHNESS75) {
+                food.setPrice(food.getPrice() - food.getDiscount());
+            }
+            res = true;
+        }
+        return res;
     }
 
 }
