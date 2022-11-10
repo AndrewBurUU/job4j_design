@@ -12,6 +12,7 @@ public class RailwayTransport {
         if (countItems <= 0) {
             throw new IllegalArgumentException("No wagons!");
         }
+        /**Предусловие: кол-во единиц поезда должно быть больше одного*/
         if (countItems == 1) {
             throw new IllegalArgumentException("Only locomotive?!");
         }

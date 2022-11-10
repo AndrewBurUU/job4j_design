@@ -12,6 +12,7 @@ public class Test extends Exam {
         for (Integer lessonsPerDay : trainingDays) {
             factLessons += lessonsPerDay;
         }
+        /**Постусловие: пропущено условие проверки получения автомата*/
         return factLessons * markPerLesson;
     }
 }

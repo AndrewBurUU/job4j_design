@@ -8,6 +8,7 @@ public class SomeCarOwner extends CarOwner {
 
     @Override
     public void setCarNumber(CarNumber carNumber) {
+        /**Инвариант: пропущена проверка правильности номера машины*/
         this.carNumber = carNumber;
     }
 }

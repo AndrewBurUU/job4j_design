@@ -15,6 +15,7 @@ public class Exam {
         for (Integer lessonsPerDay : trainingDays) {
             factLessons += lessonsPerDay;
         }
+        /**Постусловие: для получения автомата студент должен посетить все занятия*/
         if (factLessons < normLessons) {
             throw new IllegalArgumentException("Student didn't study enough!");
         }

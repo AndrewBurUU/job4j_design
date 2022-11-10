@@ -10,6 +10,7 @@ public class Tram extends RailwayTransport {
         if (countItems <= 0) {
             throw new IllegalArgumentException("No wagons!");
         }
+        /**Нарушение предусловия*/
         if (countItems > 3) {
             throw new IllegalArgumentException("Too much wagons!");
         }

@@ -23,6 +23,7 @@ public class CarOwner {
     }
 
     public void setCarNumber(CarNumber carNumber) {
+        /**Инвариант: проверка правильности номера машины*/
         validate(carNumber);
         this.carNumber = carNumber;
     }
