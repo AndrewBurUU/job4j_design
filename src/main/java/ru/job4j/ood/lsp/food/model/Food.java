@@ -1,9 +1,9 @@
-package ru.job4j.ood.lsp.food;
+package ru.job4j.ood.lsp.food.model;
 
 import java.time.*;
 import java.time.format.*;
 
-public class Food {
+public abstract class Food {
 
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");

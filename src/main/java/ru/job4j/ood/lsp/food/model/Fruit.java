@@ -1,4 +1,6 @@
-package ru.job4j.ood.lsp.food;
+package ru.job4j.ood.lsp.food.model;
+
+import ru.job4j.ood.lsp.food.model.*;
 
 import java.time.*;
 

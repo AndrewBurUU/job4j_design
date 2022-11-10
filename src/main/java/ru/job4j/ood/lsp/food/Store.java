@@ -1,17 +1,12 @@
 package ru.job4j.ood.lsp.food;
 
-import java.time.*;
+import ru.job4j.ood.lsp.food.model.*;
+
 import java.util.*;
 
 public interface Store {
 
-    String getName();
+    List<Food> getAll();
 
-    List<Food> getFoods();
-
-    List<Food> findByName(String key);
-
-    Food findById(int id);
-
-    Food add(Food food, LocalDate localDate);
+    boolean add(Food food);
 }
