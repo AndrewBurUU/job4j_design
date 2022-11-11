@@ -4,13 +4,18 @@ import java.util.*;
 
 public interface Parking extends Transport {
 
-    Map<Transport, Integer> parkSpaceLimit = new HashMap<>();
+    Map<Transport, Integer> PARK_SPACE_LIMIT = new HashMap<>();
+
     ParkSpace parkSpace();
-    List<Transport> parkCarSpaces = new ArrayList<>();
-    List<Transport> parkTruckSpaces = new ArrayList<>();
+
+    List<Transport> PARK_CAR_SPACES = new ArrayList<>();
+
+    List<Transport> PARK_TRUCK_SPACES = new ArrayList<>();
 
     ParkSpace add(Transport transport);
+
     void remove(Transport transport);
+
     int[] getFreeSpaces(Transport transport);
 
 }
