@@ -26,11 +26,13 @@ public class ControlQuality {
     }
 
     public static void main(String[] args) {
-        ControlQuality controlQuality = new ControlQuality(List.of(
-                new WareHouse("wharehouse"),
-                new Shop("shop"),
-                new Trash("trash")
-        ));
+        ExpirationCalculator<LocalDate> expirationCalculator = new LocalDateExpirationCalculator();
+        Store warehouse = new WareHouse(expirationCalculator);
+        Store shop = new Shop(expirationCalculator);
+        Store trash = new Trash(expirationCalculator);
+        List<Store> stores = List.of(warehouse, shop, trash);
+        ControlQuality controlQuality = new ControlQuality(stores);
+
 /**        LocalDate createDate = LocalDate.of(2022, 10, 1);
         LocalDate expiryDate = LocalDate.of(2022, 10, 31);*/
         /**WareHouse*/
@@ -66,4 +68,5 @@ public class ControlQuality {
             foodList.forEach(food -> System.out.println(food));
         }
     }
+
 }

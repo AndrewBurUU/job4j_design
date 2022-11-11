@@ -2,13 +2,13 @@ package ru.job4j.ood.lsp.food.model;
 
 import java.time.*;
 import java.time.format.*;
+import java.util.*;
 
 public abstract class Food {
 
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-    private int id;
     private String name;
     private LocalDate expiryDate;
     private LocalDate createDate;
@@ -17,29 +17,12 @@ public abstract class Food {
 
     public Food() { }
 
-    public Food(int id, String name, LocalDate createDate, LocalDate expiryDate, int price, int discount) {
-        this.id = id;
-        this.name = name;
-        this.createDate = createDate;
-        this.expiryDate = expiryDate;
-        this.price = price;
-        this.discount = discount;
-    }
-
     public Food(String name, LocalDate createDate, LocalDate expiryDate, int price, int discount) {
         this.name = name;
         this.createDate = createDate;
         this.expiryDate = expiryDate;
         this.price = price;
         this.discount = discount;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public LocalDate getExpiryDate() {
@@ -81,12 +64,28 @@ public abstract class Food {
     @Override
     public String toString() {
         return "Food{"
-                + "id=" + id
-                + ", name='" + name + '\''
+                + "name='" + name + '\''
                 + ", expiryDate=" + expiryDate
                 + ", createDate=" + createDate
                 + ", price=" + price
                 + ", discount=" + discount
                 + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Food food = (Food) o;
+        return price == food.price && discount == food.discount && Objects.equals(name, food.name) && Objects.equals(expiryDate, food.expiryDate) && Objects.equals(createDate, food.createDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, expiryDate, createDate, price, discount);
     }
 }

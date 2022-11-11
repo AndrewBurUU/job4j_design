@@ -3,27 +3,19 @@ package ru.job4j.ood.lsp.food.store;
 import ru.job4j.ood.lsp.food.*;
 import ru.job4j.ood.lsp.food.model.*;
 
+import java.time.*;
+
 public class Trash extends AbstractStore {
 
-    private static final int FRESHNESS = 100;
+    public static final int FRESHNESS_100 = 100;
 
-    public Trash(String name) {
-        super(name);
-    }
-
-    @Override
-    public boolean add(Food food) {
-        boolean res = false;
-        if (isExpired(food)) {
-            super.setFoods(food);
-            res = true;
-        }
-        return res;
+    public Trash(ExpirationCalculator<LocalDate> expirationCalculator) {
+        super(expirationCalculator);
     }
 
     @Override
     public boolean isExpired(Food food) {
-        return super.getPercent(food) >= FRESHNESS;
+        return super.expirationCalculator.getPercent(food) >= FRESHNESS_100;
     }
 
 }
