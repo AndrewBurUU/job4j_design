@@ -1,39 +1,34 @@
 package ru.job4j.ood.lsp.parking;
 
+import java.util.*;
+
+/**
+ * carFreeSpaces - кол-во свободных мест для парковки легковых машин
+ * truckFreeSpaces - кол-во свободных мест для парковки грузовых машин
+ * carList - список легковых машин на парковке
+ * truckList - список грузовых машин на парковке
+ */
+
 public class MixParking implements Parking {
 
-    @Override
-    public ParkSpace parkSpace() {
-        return null;
+    private int carFreeSpaces;
+    private int truckFreeSpaces;
+    private List<Transport> carList;
+    private List<Transport> truckList;
+
+    public MixParking(int carFreeSpaces, int truckFreeSpaces) {
+        this.carFreeSpaces = carFreeSpaces;
+        this.truckFreeSpaces = truckFreeSpaces;
+        this.carList = new ArrayList<>(carFreeSpaces);
+        this.truckList = new ArrayList<>(truckFreeSpaces);
     }
 
     @Override
-    public ParkSpace add(Transport transport) {
-        return null;
+    public void add(Transport transport) {
     }
 
     @Override
     public void remove(Transport transport) {
-
     }
 
-    @Override
-    public int[] getFreeSpaces(Transport transport) {
-        return new int[0];
-    }
-
-    @Override
-    public String getModel(String model) {
-        return null;
-    }
-
-    @Override
-    public String getNumber(String number) {
-        return null;
-    }
-
-    @Override
-    public int getTransportSize(int size) {
-        return 0;
-    }
 }

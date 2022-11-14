@@ -2,9 +2,9 @@ package ru.job4j.ood.lsp.parking;
 
 public interface Transport {
 
-    String getModel(String model);
+    String getModel();
 
-    String getNumber(String number);
+    String getNumber();
 
-    int getTransportSize(int size);
+    int getTransportSize();
 }

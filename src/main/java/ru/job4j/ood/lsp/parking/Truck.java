@@ -1,18 +1,27 @@
 package ru.job4j.ood.lsp.parking;
 
 public class Truck implements Transport {
-    @Override
-    public String getModel(String model) {
-        return null;
+
+    private String model;
+    private String number;
+    private int size;
+
+    public Truck(int size) {
+        this.size = size;
     }
 
     @Override
-    public String getNumber(String number) {
-        return null;
+    public String getModel() {
+        return model;
     }
 
     @Override
-    public int getTransportSize(int size) {
-        return 0;
+    public String getNumber() {
+        return number;
+    }
+
+    @Override
+    public int getTransportSize() {
+        return size;
     }
 }
