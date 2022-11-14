@@ -2,17 +2,11 @@ package ru.job4j.ood.lsp.food;
 
 import ru.job4j.ood.lsp.food.model.*;
 
-import java.time.*;
 import java.util.*;
 
 public abstract class AbstractStore implements Store {
 
     private final List<Food> foods = new ArrayList<>();
-    public ExpirationCalculator<LocalDate> expirationCalculator;
-
-    public AbstractStore(ExpirationCalculator<LocalDate> expirationCalculator) {
-        this.expirationCalculator = expirationCalculator;
-    }
 
     protected abstract boolean isExpired(Food food);
 
@@ -20,7 +14,7 @@ public abstract class AbstractStore implements Store {
     public boolean add(Food food) {
         boolean res = false;
         if (isExpired(food)) {
-            setFoods(food);
+            foods.add(food);
             res = true;
         }
         return res;
@@ -28,13 +22,9 @@ public abstract class AbstractStore implements Store {
 
     @Override
     public List<Food> getAll() {
-        List<Food> res = new ArrayList<>();
+        List<Food> res = new ArrayList<>(foods);
         res = foods;
         return res;
-    }
-
-    public void setFoods(Food food) {
-        this.foods.add(food);
     }
 
     @Override

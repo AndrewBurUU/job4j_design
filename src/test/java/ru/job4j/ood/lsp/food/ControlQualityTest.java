@@ -75,25 +75,25 @@ class ControlQualityTest {
         ControlQuality controlQuality = new ControlQuality(stores);
         /**Warehouse*/
         Food apple = new Fruit("Apple", createDate, expiryDate, 100, 10);
-        expectedWarehouse.setFoods(apple);
+        expectedWarehouse.add(apple);
         controlQuality.checkFood(apple, stores);
         /**Shop*/
         createDate = localDate.minusDays(localDate.getDayOfMonth());
         expiryDate = localDate.plusDays(30);
         Food potato = new Vegetable("Potato", createDate, expiryDate, 100, 10);
-        expectedShop.setFoods(potato);
+        expectedShop.add(potato);
         controlQuality.checkFood(potato, stores);
         /**Shop discount*/
         createDate = localDate.minusDays(localDate.getDayOfMonth());
         expiryDate = localDate.plusDays(2);
         Food potatoCheap = new Vegetable("PotatoCheap", createDate, expiryDate, 100, 10);
-        expectedShop.setFoods(potatoCheap);
+        expectedShop.add(potatoCheap);
         controlQuality.checkFood(potatoCheap, stores);
         /**Trash*/
         createDate = localDate.minusDays(localDate.getDayOfMonth());
         expiryDate = localDate.minusDays(1);
         Food milk = new Milk("Milk", createDate, expiryDate, 100, 10);
-        expectedTrash.setFoods(milk);
+        expectedTrash.add(milk);
         controlQuality.checkFood(milk, stores);
         assertThat(stores).isEqualTo(expected);
     }
