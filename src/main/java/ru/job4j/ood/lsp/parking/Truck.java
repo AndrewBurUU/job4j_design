@@ -1,8 +1,8 @@
 package ru.job4j.ood.lsp.parking;
 
-public class Truck implements Transport {
+import java.util.*;
 
-    public static final String TYPE = "TRUCK";
+public class Truck implements Transport {
 
     private String model;
     private String number;
@@ -11,6 +11,9 @@ public class Truck implements Transport {
     public Truck(String model, String number, int size) {
         this.model = model;
         this.number = number;
+        if (size < 2) {
+            size = 2;
+        }
         this.size = size;
     }
 
@@ -27,5 +30,18 @@ public class Truck implements Transport {
     @Override
     public int getTransportSize() {
         return size;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Truck truck = (Truck) o;
+        return size == truck.size && Objects.equals(model, truck.model) && Objects.equals(number, truck.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(model, number, size);
     }
 }
