@@ -25,7 +25,26 @@ public class MixParking implements Parking {
 
     @Override
     public boolean add(Transport transport) {
-        return false;
+        boolean res = false;
+        if ("car".equals(transport.getModel())) {
+            if (carFreeSpaces > 0) {
+                carList.add(transport);
+                carFreeSpaces--;
+                res = true;
+            }
+        } else if ("truck".equals(transport.getModel())) {
+            int truckSize = transport.getTransportSize();
+            if (truckFreeSpaces > 0) {
+                truckList.add(transport);
+                truckFreeSpaces = truckFreeSpaces - truckSize;
+                res = true;
+            } else if (carFreeSpaces >= truckSize) {
+                truckList.add(transport);
+                carFreeSpaces = carFreeSpaces - truckSize;
+                res = true;
+            }
+        }
+        return res;
     }
 
     @Override

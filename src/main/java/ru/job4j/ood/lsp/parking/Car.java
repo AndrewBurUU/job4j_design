@@ -3,6 +3,7 @@ package ru.job4j.ood.lsp.parking;
 public class Car implements Transport {
 
     public static final int SIZE = 1;
+    public static final String TYPE = "CAR";
 
     private String model;
     private String number;

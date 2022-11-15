@@ -2,6 +2,8 @@ package ru.job4j.ood.lsp.parking;
 
 public class Truck implements Transport {
 
+    public static final String TYPE = "TRUCK";
+
     private String model;
     private String number;
     private int size;
