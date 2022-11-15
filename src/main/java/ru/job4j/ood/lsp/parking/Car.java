@@ -7,6 +7,11 @@ public class Car implements Transport {
     private String model;
     private String number;
 
+    public Car(String model, String number) {
+        this.model = model;
+        this.number = number;
+    }
+
     @Override
     public String getModel() {
         return model;

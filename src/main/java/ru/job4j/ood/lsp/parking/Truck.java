@@ -6,7 +6,9 @@ public class Truck implements Transport {
     private String number;
     private int size;
 
-    public Truck(int size) {
+    public Truck(String model, String number, int size) {
+        this.model = model;
+        this.number = number;
         this.size = size;
     }
 

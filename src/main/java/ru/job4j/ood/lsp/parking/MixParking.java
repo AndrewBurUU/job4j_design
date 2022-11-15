@@ -24,11 +24,13 @@ public class MixParking implements Parking {
     }
 
     @Override
-    public void add(Transport transport) {
+    public boolean add(Transport transport) {
+        return false;
     }
 
     @Override
-    public void remove(Transport transport) {
+    public boolean remove(Transport transport) {
+        return false;
     }
 
 }
