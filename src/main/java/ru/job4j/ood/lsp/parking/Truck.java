@@ -9,11 +9,11 @@ public class Truck implements Transport {
     private int size;
 
     public Truck(String model, String number, int size) {
+        if (size <= Car.SIZE) {
+            throw new IllegalArgumentException();
+        }
         this.model = model;
         this.number = number;
-        if (size < 2) {
-            size = 2;
-        }
         this.size = size;
     }
 

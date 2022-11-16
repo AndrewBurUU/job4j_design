@@ -59,4 +59,32 @@ class MixParkingTest {
         assertThat(mixParking.add(truck2)).isTrue();
     }
 
+    @Test
+    void whenRemoveCarsAndTruck() {
+        Transport car1 = new Car("Lada", "в777аа");
+        Transport car2 = new Car("Mercedes", "к520аа");
+        Transport truck = new Truck("Kamaz", "а111аа", 2);
+        MixParking mixParking = new MixParking(5, 2);
+        mixParking.add(car1);
+        mixParking.add(car2);
+        mixParking.add(truck);
+        assertThat(mixParking.remove(car1)).isTrue();
+        assertThat(mixParking.remove(car2)).isTrue();
+        assertThat(mixParking.remove(truck)).isTrue();
+    }
+
+    @Test
+    void whenRemoveCarsButNoTruck() {
+        Transport car1 = new Car("Lada", "в777аа");
+        Transport car2 = new Car("Mercedes", "к520аа");
+        Transport truck = new Truck("Kamaz", "а111аа", 2);
+        MixParking mixParking = new MixParking(2, 0);
+        mixParking.add(car1);
+        mixParking.add(car2);
+        mixParking.add(truck);
+        assertThat(mixParking.remove(car1)).isTrue();
+        assertThat(mixParking.remove(car2)).isTrue();
+        assertThat(mixParking.remove(truck)).isFalse();
+    }
+
 }

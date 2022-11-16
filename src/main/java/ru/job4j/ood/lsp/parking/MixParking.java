@@ -15,53 +15,53 @@ public class MixParking implements Parking {
 
     private int carFreeSpaces;
     private int truckFreeSpaces;
-    private List<Transport> carList;
-    private List<Transport> truckList;
+    private Set<Transport> carList;
+    private Set<Transport> truckList;
 
     public MixParking(int carFreeSpaces, int truckFreeSpaces) {
         this.carFreeSpaces = carFreeSpaces;
         this.truckFreeSpaces = truckFreeSpaces;
-        this.carList = new ArrayList<>(carFreeSpaces);
-        this.truckList = new ArrayList<>(truckFreeSpaces);
+        this.carList = new HashSet<>(carFreeSpaces);
+        this.truckList = new HashSet<>(truckFreeSpaces);
     }
 
     @Override
     public boolean add(Transport transport) {
-        boolean res = false;
         int transportSize = transport.getTransportSize();
-        if (transportSize == 1) {
-            if (carFreeSpaces > 0) {
-                carList.add(transport);
-                carFreeSpaces--;
-                res = true;
-            }
-        } else {
-            if (truckFreeSpaces > 0) {
-                truckList.add(transport);
-                truckFreeSpaces = truckFreeSpaces - transportSize;
-                res = true;
-            } else if (carFreeSpaces >= transportSize) {
-                truckList.add(transport);
-                carFreeSpaces = carFreeSpaces - transportSize;
-                res = true;
-            }
+        if (transportSize == Car.SIZE
+                && carFreeSpaces >= Car.SIZE) {
+            carList.add(transport);
+            carFreeSpaces--;
+            return true;
         }
-        return res;
+        if (transportSize > Car.SIZE
+                && truckFreeSpaces >= Car.SIZE) {
+            truckList.add(transport);
+            truckFreeSpaces = truckFreeSpaces - transportSize;
+            return true;
+        }
+        if (transportSize > Car.SIZE
+                && carFreeSpaces >= transportSize) {
+            truckList.add(transport);
+            carFreeSpaces = carFreeSpaces - transportSize;
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean remove(Transport transport) {
-        boolean res = false;
         if (carList.contains(transport)) {
-           carList.remove(transport);
+            carList.remove(transport);
            carFreeSpaces = carFreeSpaces + transport.getTransportSize();
-           res = true;
-        } else if (truckList.contains(transport)) {
+           return true;
+        }
+        if (truckList.contains(transport)) {
             truckList.remove(transport);
             truckFreeSpaces = truckFreeSpaces + transport.getTransportSize();
-            res = true;
+            return true;
         }
-        return res;
+        return false;
     }
 
 }
