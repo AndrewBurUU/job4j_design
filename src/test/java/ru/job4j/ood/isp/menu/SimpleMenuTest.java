@@ -6,7 +6,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Disabled
 class SimpleMenuTest {
 
     public static final ActionDelegate STUB_ACTION = System.out::println;
@@ -38,7 +37,7 @@ class SimpleMenuTest {
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
         menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
         assertThat(new Menu.MenuItemInfo("Сходить в магазин",
-                List.of("Купить продукты"), STUB_ACTION, "1.1.1."))
+                List.of("Купить продукты"), STUB_ACTION, "1."))
                 .isEqualTo(menu.select("Сходить в магазин").get());
     }
 
@@ -50,8 +49,7 @@ class SimpleMenuTest {
         PrintMenu printMenu = new PrintMenu();
         printMenu.print(menu);
         assertThat(printMenu.toString()).isEqualTo(
-                "1. null" + System.lineSeparator()
-                + "1.1. Сходить в магазин" + System.lineSeparator()
-                + "1.1.1. Купить продукты" + System.lineSeparator());
+                "1. Сходить в магазин" + System.lineSeparator()
+                + "1.1. Купить продукты" + System.lineSeparator());
     }
 }

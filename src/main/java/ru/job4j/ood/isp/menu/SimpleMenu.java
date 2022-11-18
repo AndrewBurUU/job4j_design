@@ -14,9 +14,7 @@ public class SimpleMenu implements Menu {
             return false;
         }
         if (parentName == null) {
-            SimpleMenuItem parentMenuItem = new SimpleMenuItem(parentName, null);
-            SimpleMenuItem childMenuItem = new SimpleMenuItem(childName, actionDelegate);
-            parentMenuItem.children.add(childMenuItem);
+            SimpleMenuItem parentMenuItem = new SimpleMenuItem(childName, actionDelegate);
             rootElements.add(parentMenuItem);
             return true;
         }

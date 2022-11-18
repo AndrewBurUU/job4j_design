@@ -1,7 +1,5 @@
 package ru.job4j.ood.isp.menu;
 
-import java.util.*;
-
 public class PrintMenu implements MenuPrinter {
 
     private final StringBuilder buffer = new StringBuilder();
