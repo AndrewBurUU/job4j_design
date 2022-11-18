@@ -1,6 +1,7 @@
 package ru.job4j.ood.isp.menu;
 
 import java.util.*;
+import java.util.Optional;
 
 public class SimpleMenu implements Menu {
 
@@ -8,19 +9,22 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
-        Optional<ItemInfo> optionalParentItemInfo = findItem(parentName);
-        if (optionalParentItemInfo.isEmpty()) {
+        Optional<ItemInfo> optionalChildItemInfo = findItem(childName);
+        if (optionalChildItemInfo.isPresent()) {
+            return false;
+        }
+        if (parentName == null) {
             SimpleMenuItem parentMenuItem = new SimpleMenuItem(parentName, null);
             SimpleMenuItem childMenuItem = new SimpleMenuItem(childName, actionDelegate);
             parentMenuItem.children.add(childMenuItem);
             rootElements.add(parentMenuItem);
             return true;
         }
-        if (findItem(childName).isEmpty()) {
-            SimpleMenuItem childMenuItem = new SimpleMenuItem(childName, actionDelegate);
+        Optional<ItemInfo> optionalParentItemInfo = findItem(parentName);
+        if (optionalParentItemInfo.isPresent()) {
             ItemInfo parentItemInfo = optionalParentItemInfo.get();
+            SimpleMenuItem childMenuItem = new SimpleMenuItem(childName, actionDelegate);
             parentItemInfo.menuItem.getChildren().add(childMenuItem);
-            rootElements.add(parentItemInfo.menuItem);
             return true;
         }
         return false;
@@ -28,20 +32,31 @@ public class SimpleMenu implements Menu {
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
-        Optional<ItemInfo> optionalItemInfo = findItem(itemName);
-        if (optionalItemInfo.isPresent()) {
-            ItemInfo itemInfo = optionalItemInfo.get();
-            MenuItemInfo menuItemInfo = new MenuItemInfo(
+            return findItem(itemName).map(itemInfo -> new MenuItemInfo(
                     itemInfo.menuItem,
-                    itemInfo.number);
-            return Optional.of(menuItemInfo);
-        }
-        return null;
+                    itemInfo.number));
     }
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
-        return null;
+        DFSIterator dfsIterator = new DFSIterator();
+        return new Iterator<MenuItemInfo>() {
+
+            @Override
+            public boolean hasNext() {
+                return dfsIterator.hasNext();
+            }
+
+            @Override
+            public MenuItemInfo next() {
+                ItemInfo itemInfo = dfsIterator.next();
+                MenuItemInfo menuItemInfo = new MenuItemInfo(
+                        itemInfo.menuItem,
+                        itemInfo.number
+                );
+                return menuItemInfo;
+            }
+        };
     }
 
     private Optional<ItemInfo> findItem(String name) {
