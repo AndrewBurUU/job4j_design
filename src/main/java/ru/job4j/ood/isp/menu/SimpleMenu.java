@@ -67,7 +67,7 @@ public class SimpleMenu implements Menu {
                 return Optional.of(iteratorItemInfo);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     private static class SimpleMenuItem implements MenuItem {

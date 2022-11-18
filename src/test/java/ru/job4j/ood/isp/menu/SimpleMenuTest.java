@@ -31,4 +31,27 @@ class SimpleMenuTest {
                 .isEqualTo(menu.select("Покормить собаку").get());
         menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
     }
+
+    @Test
+    public void whenSelect() {
+        Menu menu = new SimpleMenu();
+        menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
+        menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
+        assertThat(new Menu.MenuItemInfo("Сходить в магазин",
+                List.of("Купить продукты"), STUB_ACTION, "1.1.1."))
+                .isEqualTo(menu.select("Сходить в магазин").get());
+    }
+
+    @Test
+    public void whenPrint() {
+        Menu menu = new SimpleMenu();
+        menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
+        menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
+        PrintMenu printMenu = new PrintMenu();
+        printMenu.print(menu);
+        assertThat(printMenu.toString()).isEqualTo(
+                "1. null" + System.lineSeparator()
+                + "1.1. Сходить в магазин" + System.lineSeparator()
+                + "1.1.1. Купить продукты" + System.lineSeparator());
+    }
 }
