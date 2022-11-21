@@ -33,4 +33,5 @@ public class ControlQuality {
         }
         stores = tmpStores;
     }
+
 }
