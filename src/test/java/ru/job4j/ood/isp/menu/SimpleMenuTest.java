@@ -49,7 +49,7 @@ class SimpleMenuTest {
         PrintMenu printMenu = new PrintMenu();
         printMenu.print(menu);
         assertThat(printMenu.toString()).isEqualTo(
-                "1. Сходить в магазин" + System.lineSeparator()
-                + "1.1. Купить продукты" + System.lineSeparator());
+                " 1. Сходить в магазин" + System.lineSeparator()
+                + "---- 1.1. Купить продукты" + System.lineSeparator());
     }
 }
