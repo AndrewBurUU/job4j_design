@@ -24,14 +24,17 @@ public class ControlQuality {
     }
 
     public void resort() {
-        List<Store> tmpStores = new ArrayList<>();
+        List<Food> tmpFoods = new ArrayList<>();
         for (Store store : stores) {
             List<Food> foods = store.getAll();
             for (Food food : foods) {
-                checkFood(food, tmpStores);
+                tmpFoods.add(food);
             }
+            store.clear();
         }
-        stores = tmpStores;
+        for (Food food : tmpFoods) {
+            checkFood(food, stores);
+        }
     }
 
 }

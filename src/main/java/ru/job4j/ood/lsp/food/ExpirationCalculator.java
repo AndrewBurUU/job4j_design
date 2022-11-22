@@ -8,5 +8,4 @@ public interface ExpirationCalculator<T> {
 
     double getPercent(Food food);
 
-    LocalDate getLocalDate();
 }

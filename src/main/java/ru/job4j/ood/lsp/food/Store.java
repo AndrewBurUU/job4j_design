@@ -9,4 +9,6 @@ public interface Store {
     List<Food> getAll();
 
     boolean add(Food food);
+
+    void clear();
 }

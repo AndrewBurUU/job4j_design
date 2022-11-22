@@ -9,12 +9,11 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled
 class ControlQualityTest {
 
-    private WareHouse warehouse = new WareHouse(new LocalDateExpirationCalculator(LocalDate.now()));
-    private Shop shop = new Shop(new LocalDateExpirationCalculator(LocalDate.now()));
-    private Trash trash = new Trash(new LocalDateExpirationCalculator(LocalDate.now()));
+    private WareHouse warehouse = new WareHouse(new LocalDateExpirationCalculator());
+    private Shop shop = new Shop(new LocalDateExpirationCalculator());
+    private Trash trash = new Trash(new LocalDateExpirationCalculator());
     private List<Store> stores = List.of(warehouse, shop, trash);
 
     @Test
@@ -65,9 +64,9 @@ class ControlQualityTest {
 
     @Test
     public void whenPutFourFoodsToAllStores() {
-        WareHouse expectedWarehouse = new WareHouse(new LocalDateExpirationCalculator(LocalDate.now()));
-        Shop expectedShop = new Shop(new LocalDateExpirationCalculator(LocalDate.now()));
-        Trash expectedTrash = new Trash(new LocalDateExpirationCalculator(LocalDate.now()));
+        WareHouse expectedWarehouse = new WareHouse(new LocalDateExpirationCalculator());
+        Shop expectedShop = new Shop(new LocalDateExpirationCalculator());
+        Trash expectedTrash = new Trash(new LocalDateExpirationCalculator());
         List<Store> expected = List.of(expectedWarehouse, expectedShop, expectedTrash);
 
         LocalDate localDate = LocalDate.now();
@@ -109,15 +108,18 @@ class ControlQualityTest {
         Food apple = new Fruit("Apple", createDate, expiryDate, 100, 10);
         controlQuality.checkFood(apple, stores);
 
-        LocalDateExpirationCalculator newDateCalc = new LocalDateExpirationCalculator(localDate.plusDays(15));
-        WareHouse expectedWarehouse = new WareHouse(newDateCalc);
-        Shop expectedShop = new Shop(newDateCalc);
-        Trash expectedTrash = new Trash(newDateCalc);
+        WareHouse expectedWarehouse = new WareHouse(new LocalDateExpirationCalculator());
+        Shop expectedShop = new Shop(new LocalDateExpirationCalculator());
+        Trash expectedTrash = new Trash(new LocalDateExpirationCalculator());
         List<Store> expected = List.of(expectedWarehouse, expectedShop, expectedTrash);
+        apple.setCreateDate(localDate.minusDays(15));
         expectedShop.add(apple);
-        warehouse.expirationCalculator = newDateCalc;
-        shop.expirationCalculator = newDateCalc;
-        trash.expirationCalculator = newDateCalc;
+
+        for (Food food : warehouse.getAll()) {
+            if ("Apple".equals(food.getName())) {
+                food.setCreateDate(localDate.minusDays(15));
+            }
+        }
         controlQuality.resort();
         assertThat(stores).isEqualTo(expected);
     }

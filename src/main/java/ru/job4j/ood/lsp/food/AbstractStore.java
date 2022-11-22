@@ -22,6 +22,11 @@ public abstract class AbstractStore implements Store {
     }
 
     @Override
+    public void clear() {
+        foods.clear();
+    }
+
+    @Override
     public List<Food> getAll() {
         return new ArrayList<>(foods);
     }
