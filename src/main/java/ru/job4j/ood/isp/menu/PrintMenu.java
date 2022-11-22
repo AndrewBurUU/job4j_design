@@ -7,7 +7,7 @@ public class PrintMenu implements MenuPrinter {
 
     private String repeatDelimiter(String str) {
         int count = str.split("\\.").length;
-        return count == 0 ? "" : new String(DELIMITER).repeat(count - 1);
+        return count == 0 ? "" : DELIMITER.repeat(count - 1);
     }
 
     @Override
