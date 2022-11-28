@@ -1,8 +1,8 @@
 package ru.job4j.ood.dip.example;
 
-public class ConsolePrinter implements Printer {
+public class HtmlPrinter implements Printer {
 
-    private final static String PRINTER_TYPE = "ConsolePrinter";
+    private final static String PRINTER_TYPE = "HTMLPrinter";
 
     @Override
     public void print(String text) {
