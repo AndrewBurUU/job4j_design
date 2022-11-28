@@ -8,7 +8,6 @@ public class Book {
     private String name;
     private Printer printer;
 
-
     public Book(String name, Printer printer) {
         this.name = name;
         this.printer = printer;
