@@ -35,3 +35,6 @@ OCP,
 LSP.
 ISP
 DIP
+
+# Контакты
+Telegram: @andrew76k
