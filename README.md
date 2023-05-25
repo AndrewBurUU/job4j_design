@@ -37,4 +37,4 @@ ISP
 DIP
 
 # Контакты
-Telegram: @andrew76k
+andrew76k@rambler.ru
